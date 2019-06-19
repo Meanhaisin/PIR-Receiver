@@ -13,9 +13,9 @@ extern uint8_t keyDective(int sw); //按键读取函数
 //extern void led_blink(); //led控制函数
 
 
-#define STATUS_STD 0
-#define STATUS_MSG 1
-#define STATUS_PAIR 2
+#define STATUS_STD 0 //标准状态主要轮询些外设
+#define STATUS_MSG 1 //信息接收
+#define STATUS_PAIR 2 //配对
 
 void DO_STATUS_std();
 void DO_STATUS_msg();

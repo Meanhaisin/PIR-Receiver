@@ -7,6 +7,8 @@ bool system_init() //初始化端口、RF模块、检测设备是否完成配对
 {
   pinMode(IRQ, INPUT);
 
+  interface_init();
+
   if (!radioInit())
   {
     return 0;
@@ -15,18 +17,25 @@ bool system_init() //初始化端口、RF模块、检测设备是否完成配对
   {
     return 1;
   }
+
+  attachInterrupt(IRQ - 1, isr, FALLING);
 }
 
 uint8_t bat_voltage()
 {
 
-   return analogRead(BAT) / 8;
-   
+  return analogRead(BAT) / 8;
+
+}
+
+void isr()
+{
+  current_STATUS = STATUS_MSG;
 }
 
 /*
-void led_blink()
-{
+  void led_blink()
+  {
 
   if (ledchange == 1) //开始配对
   {
@@ -48,12 +57,12 @@ void led_blink()
     }
   }
 
-}
+  }
 */
 /*
-void blink_block(uint8_t t, uint8_t count)
-{
-  
+  void blink_block(uint8_t t, uint8_t count)
+  {
+
   for (uint8_t i = 0; i < t; i++)
   {
     digitalWrite(LED, HIGH);
@@ -62,5 +71,5 @@ void blink_block(uint8_t t, uint8_t count)
     delay(t);
   }
 
-}
+  }
 */

@@ -11,6 +11,7 @@ bool radioInit()
   RF.setDataRate(RF24_250KBPS); //发射速率设定
   RF.setPALevel(RF24_PA_HIGH); //发射功率设定,测试后可适当调小以节能
   RF.setPayloadSize(PAY_LOAD_SIZE_STD); //发射负载大小(Byte)
+  RF.maskIRQ(1,1,0); //(tx_ok,tx_fail,rx_ready) 设置中断类型,屏蔽发送、发送失败中断,保留接收中断
   readPipe();
   delay(4);
   if (pairCheck())

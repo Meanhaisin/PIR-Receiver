@@ -3,6 +3,8 @@
 
 #include "Arduino.h"
 
+#include <avr/sleep.h>
+
 #define SW1 2
 #define SW2 4
 #define SW3 7
