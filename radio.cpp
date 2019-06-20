@@ -21,7 +21,7 @@ bool radioInit()
     {
       if (ispair[i])
       {
-        RF.openReadingPipe(REC_READINGPIPE_OFFSITE + i,rec_pipe[i]);
+        RF.openReadingPipe(REC_READINGPIPE_OFFSITE + i, rec_pipe[i]);
       }
     }
     RF.startListening();
@@ -31,7 +31,6 @@ bool radioInit()
   {
     return 0;
   }
-
 }
 
 bool radioRec()
@@ -40,17 +39,17 @@ bool radioRec()
   uint8_t pipeNum = 0;
 
   RF.available(&pipeNum);
-  RF.read(&msg,sizeof(msg));
+  RF.read(&msg, sizeof(msg));
 
   if (msg % 10 == 1)
   {
     alarm[pipeNum] = 1;
-    return 1; 
+    return 1;
   }
   else
   {
     alarm[pipeNum] = 0;
-    return 0; 
+    return 0;
   }
 }
 
@@ -58,29 +57,45 @@ void radioPair()
 {
   bool success = 0;
   byte tmp_pipe[5];
-  
+
   switch (rfStatus)
   {
     case RF_STATUS_START_PAIR:
       RF.stopListening();
+      RF.setPayloadSize(PAY_LOAD_SIZE_PAIR);
       RF.openWritingPipe(pair_pipe);
       if (sw_status[MID] == SHORT_PRESSED)
       {
-        
         rfStatus = RF_STATUS_PAIRING;
+        readSN(tmp_pipe);
+        tmp_pipe[0] = pos;
+      }
+      else if (sw_status[MID] == LONG_PRESSED)
+      {
+        rfStatus = RF_STATUS_STD;
       }
       break;
-      
+
     case RF_STATUS_PAIRING:
-      //success = RF.write();
-      
+      success = RF.write(tmp_pipe, sizeof(tmp_pipe));
+      if (success)
+      {
+        ispair[pos] = 1;
+        rfStatus = RF_STATUS_STD;
+        blink_block(pos,10,3);
+      }
+      break;
+
+     case RF_STATUS_STD:
+      RF.setPayloadSize(PAY_LOAD_SIZE_STD);
+      current_STATUS = STATUS_STD;
       break;
   }
 }
 
 /*
-void radioSend(bool flag)
-{
+  void radioSend(bool flag)
+  {
   uint8_t msg = 0;
 
   if (flag)
@@ -93,11 +108,11 @@ void radioSend(bool flag)
   }
 
   RF.write(&msg, sizeof(msg));
-}
+  }
 */
 /*
-void radioPair()
-{
+  void radioPair()
+  {
 
   switch (rfStatus)
   {
@@ -119,15 +134,15 @@ void radioPair()
         rfStatus = RF_STATUS_STD;
         current_STATUS = STATUS_STD;
       }
-      
+
         else
         {
         ledchange = 0;
         }
-      
+
       break;
   }
-}
+  }
 */
 bool pairCheck()
 {
@@ -147,12 +162,12 @@ bool pairCheck()
 
   for (uint8_t i = 0 ; i < 5 ; i++)
   {
-    if (ispair[i] = 1)
+    if (ispair[i] == 1)
     {
       flag = 1;
       break;
     }
   }
-  
+
   return flag;
 }

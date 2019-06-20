@@ -26,5 +26,5 @@ bool system_init();
 uint8_t bat_voltage();
 void isr();
 void time_isr();
-
+void blink_block(uint8_t pin, uint8_t t, uint8_t count);
 #endif
