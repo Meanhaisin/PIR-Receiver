@@ -20,5 +20,6 @@ extern uint8_t keyDective(int sw); //按键读取函数
 void DO_STATUS_std();
 void DO_STATUS_msg();
 void DO_STATUS_pair();
+void Alarm(); //报警函数
 
 #endif
