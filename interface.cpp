@@ -15,3 +15,8 @@ void interface_init()
   pinMode(LED5,OUTPUT);
   pinMode(BZ,OUTPUT);
 }
+
+void sw_press()
+{
+  
+}

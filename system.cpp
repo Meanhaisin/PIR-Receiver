@@ -1,4 +1,5 @@
 #include "system.h"
+//#include "interface.h"
 
 bool ledchange = 1;
 bool ledflag = 0;
@@ -8,6 +9,8 @@ bool system_init() //初始化端口、RF模块、检测设备是否完成配对
   pinMode(IRQ, INPUT);
 
   interface_init();
+
+  Boot_Lantern();
 
   if (!radioInit())
   {
@@ -73,3 +76,19 @@ void isr()
 
   }
 */
+void Boot_Lantern()
+{
+  PORTC = B00101010;
+  delay(400);
+  PORTC = B00010100;
+  delay(400);
+  PORTC = B00101010;
+  delay(400);
+  PORTC = B00010100;
+  delay(400);
+  PORTC = B00101010;
+  delay(400);
+  PORTC = B00010100;
+  delay(400);
+  PORTC = B00000000;
+}
