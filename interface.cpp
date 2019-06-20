@@ -42,14 +42,7 @@ void Boot_Lantern() //开机动画
 void sw_press() //控制中键及配对状态下的左右键
 {
   sw_status[MID] = keyDetect(SW1);
-<<<<<<< HEAD
   if(current_STATUS == STATUS_PAIR) //非配对状态下禁用左右键
-=======
-  sw_status[LEFT] = keyDetect(SW2);
-  sw_status[RIGHT] = keyDetect(SW3);
-
-  if (sw_status[LEFT] == 1)
->>>>>>> 9c2449ea152586597285d16eac1160119d0c93cb
   {
     sw_status[LEFT] = keyDetect(SW2);
     sw_status[RIGHT] = keyDetect(SW3);
@@ -73,16 +66,12 @@ void sw_press() //控制中键及配对状态下的左右键
       pos = (pos + 1) % 5;
     }
   }
-<<<<<<< HEAD
 }
 
 void Alarm() //控制标准状态下的led报警
 {
   uint8_t i;
   for(i=0;i<5;i++)
-=======
-  if (sw_status[RIGHT] == 1)
->>>>>>> 9c2449ea152586597285d16eac1160119d0c93cb
   {
     digitalWrite(LED1 + i,alarm[i]);
   }
@@ -91,7 +80,6 @@ void Alarm() //控制标准状态下的led报警
 uint8_t led_set(bool ispair[]) //生成寄存器使用的二进制代码
 {
   uint8_t i;
-<<<<<<< HEAD
   uint8_t re = 0;
   for(i=0;i<5;i++)
   {
@@ -114,10 +102,5 @@ void led_pair() //控制配对状态下的led闪烁
     PORTC = led_set(ispair);
   ispair[pos] = !ispair[pos];
   setled++;
-=======
-  for (i = 0; i < 5; i++)
-  {
-    digitalWrite(LED1 + i, alarm[i]);
->>>>>>> 9c2449ea152586597285d16eac1160119d0c93cb
   }
 }
