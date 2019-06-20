@@ -70,6 +70,10 @@ void radioPair()
         readSN(tmp_pipe);
         tmp_pipe[0] = pos;
       }
+      else if (sw_status[MID] == LONG_PRESSED)
+      {
+        rfStatus = RF_STATUS_STD;
+      }
       break;
 
     case RF_STATUS_PAIRING:
@@ -78,12 +82,12 @@ void radioPair()
       {
         ispair[pos] = 1;
         rfStatus = RF_STATUS_STD;
+        blink_block(pos,10,3);
       }
       break;
 
      case RF_STATUS_STD:
       RF.setPayloadSize(PAY_LOAD_SIZE_STD);
-      blink_block(pos,10,3);
       current_STATUS = STATUS_STD;
       break;
   }
