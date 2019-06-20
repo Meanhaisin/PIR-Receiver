@@ -66,9 +66,9 @@ void radioPair()
       RF.openWritingPipe(pair_pipe);
       if (sw_status[MID] == SHORT_PRESSED)
       {
+        rfStatus = RF_STATUS_PAIRING;
         readSN(tmp_pipe);
         tmp_pipe[0] = pos;
-        rfStatus = RF_STATUS_PAIRING;
       }
       break;
 
@@ -77,11 +77,14 @@ void radioPair()
       if (success)
       {
         ispair[pos] = 1;
-        RF.setPayloadSize(PAY_LOAD_SIZE_STD);
-        RF.startListening();
         rfStatus = RF_STATUS_STD;
-        current_STATUS = STATUS_STD;
       }
+      break;
+
+     case RF_STATUS_STD:
+      RF.setPayloadSize(PAY_LOAD_SIZE_STD);
+      blink_block(pos,10,3);
+      current_STATUS = STATUS_STD;
       break;
   }
 }
@@ -155,7 +158,7 @@ bool pairCheck()
 
   for (uint8_t i = 0 ; i < 5 ; i++)
   {
-    if (ispair[i] = 1)
+    if (ispair[i] == 1)
     {
       flag = 1;
       break;

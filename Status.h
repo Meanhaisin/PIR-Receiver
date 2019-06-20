@@ -11,6 +11,7 @@ extern uint8_t rfStatus; //无线状态
 extern bool readKey(int sw);
 extern uint8_t keyDective(int sw); //按键读取函数
 //extern void led_blink(); //led控制函数
+extern void Alarm(); //报警函数
 
 
 #define STATUS_STD 0 //标准状态主要轮询些外设
@@ -20,6 +21,5 @@ extern uint8_t keyDective(int sw); //按键读取函数
 void DO_STATUS_std();
 void DO_STATUS_msg();
 void DO_STATUS_pair();
-void Alarm(); //报警函数
 
 #endif
