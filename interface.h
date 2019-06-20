@@ -3,6 +3,7 @@
 
 #include "Arduino.h"
 #include "key.h"
+#include "Status.h"
 
 #include <avr/sleep.h>
 

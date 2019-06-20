@@ -40,7 +40,17 @@ void isr()
 
 void time_isr()
 {
-  
+  static uint8_t isr_timer = 0;
+  isr_timer++;
+  if(isr_timer >= 1) //便于调时
+  {
+    sw_press();
+  }
+  if(isr_timer >= 500)
+  {
+    led_pair();
+    isr_timer = 0;
+  }
 }
 /*
   void led_blink()
