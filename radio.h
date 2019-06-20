@@ -8,6 +8,8 @@
 #include "system.h"
 #include "ROM.h"
 #include "Status.h"
+#include "key.h"
+#include "interface.h"
 
 #define CE 9
 #define CSN 10
@@ -21,6 +23,8 @@
 #define PAY_LOAD_SIZE_PAIR 6 //配对发射负载大小
 #define REC_READINGPIPE_OFFSITE 1 //接收管道偏移
 #define PAIR_READINGPIPE 1 //配对管道
+
+extern uint8_t sw_status[];
 
 const byte pair_pipe[5] = {'P', 'p', 'a','i' ,'r'}; //配对默认管道
 
