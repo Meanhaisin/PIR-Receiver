@@ -23,5 +23,7 @@ void interface_init();
 void Boot_Lantern();
 void sw_press();
 void Alarm();
+uint8_t led_set(bool ispair[]);
+void led_pair();
 
 #endif

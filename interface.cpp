@@ -2,6 +2,7 @@
 extern bool alarm[];
 uint8_t sw_status[] = {0,0,0};
 uint8_t pos = 2;
+extern bool ispair[5];
 
 void interface_init()
 {
@@ -58,5 +59,38 @@ void Alarm()
   for(i=0;i<5;i++)
   {
     digitalWrite(LED1 + i,alarm[i]);
+  }
+}
+
+uint8_t led_set(bool ispair[])
+{
+  uint8_t i;
+  uint8_t re = 0;
+  for(i=0;i<5;i++)
+  {
+    if(ispair[i] == 0)
+    {
+      bitSet(re,i+1);
+    }
+    else
+    {
+      bitClear(re,i+1);
+    }
+  }
+  return re;
+}
+
+void led_pair()
+{
+  static uint8_t i = 0;
+  PORTC = led_set(ispair);
+  if(i<5000)
+  {
+    i++;
+  }
+  else
+  {
+    i = 0;
+    ispair[pos] = !ispair[pos];
   }
 }
