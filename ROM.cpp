@@ -2,21 +2,34 @@
 
 void writePipe(byte pipe[])
 {
-  for (uint8_t i = PIPE_OFFSITE; i < PIPE_WIDTH; i++)
+  for (uint8_t i = PIPE_OFFSITE; i < SN_WIDTH; i++)
   {
-    EEPROM.update(i, pipe[i]);
+    EEPROM.update(i, pipe[SN_WIDTH - i]);
   }
+}
+
+void writeNO(uint8_t no ,byte pipe[])
+{
+  EEPROM.update(PIPE_WIDTH + no, pipe[0]);
 }
 
 void readPipe()
 {
-  for (uint8_t i = PIPE_OFFSITE; i < PIPE_WIDTH; i++)
+  for (uint8_t t = 0; t < PIPE_NUM_MAX; t++)
   {
-    send_pipe[i] = EEPROM.read(i);
+    for (uint8_t i = PIPE_OFFSITE; i < SN_WIDTH; i ++)
+    {
+      rec_pipe[t][SN_WIDTH - i] = EEPROM.read(i);
+    }
+  }
+
+  for (uint8_t i = NO_OFFSITE; i < PIPE_NUM_MAX; i++)
+  {
+    rec_pipe[0][i] = EEPROM.read(i);
   }
 }
 
-void delPipe()
+void delPipe(uint8_t no)
 {
-  EEPROM.update(NO_OFFSITE,0);
+  EEPROM.update(NO_OFFSITE + no, 0);
 }
