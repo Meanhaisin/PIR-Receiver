@@ -6,7 +6,7 @@ bool alarm[] = {0, 0, 0, 0, 0};
 
 void DO_STATUS_std()
 {
-  void Alarm();
+  Alarm();
 
 
 }

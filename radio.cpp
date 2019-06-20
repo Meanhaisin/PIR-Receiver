@@ -56,8 +56,28 @@ bool radioRec()
 
 void radioPair()
 {
+  bool success = 0;
+  byte tmp_pipe[5];
   
+  switch (rfStatus)
+  {
+    case RF_STATUS_START_PAIR:
+      RF.stopListening();
+      RF.openWritingPipe(pair_pipe);
+      if (sw_status[MID] == SHORT_PRESSED)
+      {
+        
+        rfStatus = RF_STATUS_PAIRING;
+      }
+      break;
+      
+    case RF_STATUS_PAIRING:
+      //success = RF.write();
+      
+      break;
+  }
 }
+
 /*
 void radioSend(bool flag)
 {

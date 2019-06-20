@@ -1,4 +1,5 @@
 #include"interface.h"
+
 extern bool alarm[];
 uint8_t sw_status[] = {0,0,0};
 uint8_t pos = 2;

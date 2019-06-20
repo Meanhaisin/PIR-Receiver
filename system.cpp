@@ -21,6 +21,9 @@ bool system_init() //初始化端口、RF模块、检测设备是否完成配对
   }
 
   attachInterrupt(IRQ - 1, isr, FALLING);
+
+  MsTimer2::set(INTERVAL, time_isr);
+  MsTimer2::start( );
 }
 
 uint8_t bat_voltage()
@@ -35,6 +38,10 @@ void isr()
   current_STATUS = STATUS_MSG;
 }
 
+void time_isr()
+{
+  
+}
 /*
   void led_blink()
   {
@@ -61,17 +68,16 @@ void isr()
 
   }
 */
-/*
-  void blink_block(uint8_t t, uint8_t count)
-  {
 
-  for (uint8_t i = 0; i < t; i++)
+void blink_block(uint8_t pin, uint8_t t, uint8_t count)
+{
+
+  for (uint8_t i = 0; i < count; i++)
   {
-    digitalWrite(LED, HIGH);
+    digitalWrite(pin, HIGH);
     delay(t);
-    digitalWrite(LED, LOW);
+    digitalWrite(pin, LOW);
     delay(t);
   }
 
-  }
-*/
+}
