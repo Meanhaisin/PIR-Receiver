@@ -16,5 +16,6 @@
 #define BZ 5
 
 void interface_init();
+void Boot_Lantern();
 
 #endif

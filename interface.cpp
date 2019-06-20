@@ -16,6 +16,23 @@ void interface_init()
   pinMode(BZ,OUTPUT);
 }
 
+void Boot_Lantern()
+{
+  PORTC = B00101010;
+  delay(400);
+  PORTC = B00010100;
+  delay(400);
+  PORTC = B00101010;
+  delay(400);
+  PORTC = B00010100;
+  delay(400);
+  PORTC = B00101010;
+  delay(400);
+  PORTC = B00010100;
+  delay(400);
+  PORTC = B00000000;
+}
+
 void sw_press()
 {
   
