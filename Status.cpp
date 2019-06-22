@@ -6,6 +6,11 @@ bool alarm[] = {0, 0, 0, 0, 0};
 void DO_STATUS_std()
 {
   Alarm();
+
+  if(sw_status[MID] == LONG_PRESSED)
+  {
+    current_STATUS = STATUS_PAIR;
+  }
 }
 
 void DO_STATUS_msg()
