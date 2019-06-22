@@ -22,8 +22,8 @@ bool system_init() //初始化端口、RF模块、检测设备是否完成配对
 
   attachInterrupt(IRQ - 1, isr, FALLING);
 
-  MsTimer2::set(INTERVAL, time_isr);
-  MsTimer2::start( );
+  Timer1.initialize(INTERVAL);
+  Timer1.attachInterrupt(time_isr);
 }
 
 uint8_t bat_voltage()
