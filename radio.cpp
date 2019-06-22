@@ -1,7 +1,7 @@
 #include "radio.h"
 
 byte rec_pipe[5][5]; //接收管道,从EEPROM读取
-uint8_t rfStatus = RF_STATUS_STD;
+uint8_t rfStatus = RF_STATUS_START_PAIR;
 bool ispair[5] = {0}; //是否已配对
 
 RF24 RF(CE, CSN);
@@ -64,11 +64,13 @@ void radioPair()
       RF.stopListening();
       RF.setPayloadSize(PAY_LOAD_SIZE_PAIR);
       RF.openWritingPipe(pair_pipe);
+      //Boot_Lantern();
       if (sw_status[MID] == SHORT_PRESSED)
       {
         rfStatus = RF_STATUS_PAIRING;
         readSN(tmp_pipe);
         tmp_pipe[0] = pos;
+        //Boot_Lantern();
       }
       else if (sw_status[MID] == LONG_PRESSED)
       {

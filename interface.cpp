@@ -1,9 +1,7 @@
 #include"interface.h"
 
-extern bool alarm[];
 uint8_t sw_status[] = {0, 0, 0};
 uint8_t pos = 2;
-extern bool ispair[5];
 uint8_t setled = 0;
 
 void interface_init()
@@ -28,6 +26,7 @@ void Boot_Lantern() //开机动画
   delay(400);
   PORTC = B00010100;
   delay(400);
+  /*
   PORTC = B00101010;
   delay(400);
   PORTC = B00010100;
@@ -37,6 +36,7 @@ void Boot_Lantern() //开机动画
   PORTC = B00010100;
   delay(400);
   PORTC = B00000000;
+  */
 }
 
 void sw_press() //控制中键及配对状态下的左右键
@@ -47,7 +47,7 @@ void sw_press() //控制中键及配对状态下的左右键
     sw_status[LEFT] = keyDetect(SW2);
     sw_status[RIGHT] = keyDetect(SW3);
 
-    if(sw_status[LEFT] == 1 && rfStatus != RF_STATUS_PAIRING) //配对确认状态下禁用左右键
+    if(sw_status[LEFT] == SHORT_PRESSED && rfStatus != RF_STATUS_PAIRING) //配对确认状态下禁用左右键
     {
       if(setled % 2 == 1) //防止按下左右键改变ispair
       {
@@ -81,14 +81,17 @@ uint8_t led_set(bool ispair[]) //生成寄存器使用的二进制代码
 {
   uint8_t i;
   uint8_t re = 0;
+  //Boot_Lantern();
   for(i=0;i<5;i++)
   {
     if(ispair[i] == 0)
     {
+      //Boot_Lantern();
       bitSet(re,i+1);
     }
     else
     {
+      //Boot_Lantern();
       bitClear(re,i+1);
     }
   }
@@ -96,11 +99,12 @@ uint8_t led_set(bool ispair[]) //生成寄存器使用的二进制代码
 }
 
 void led_pair() //控制配对状态下的led闪烁
-{
+{ 
   if(current_STATUS == STATUS_PAIR && rfStatus != RF_STATUS_STD) //判断是否在配对状态并且配对未完成
   {
-    PORTC = led_set(ispair);
+  PORTC = led_set(ispair);
   ispair[pos] = !ispair[pos];
+  //Boot_Lantern();
   setled++;
   }
 }

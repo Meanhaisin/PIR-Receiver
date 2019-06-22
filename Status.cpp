@@ -21,6 +21,7 @@ void DO_STATUS_msg()
 
 void DO_STATUS_pair()
 {
+  //Boot_Lantern();
   radioPair();
 
   //待加入按键逻辑

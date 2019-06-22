@@ -7,12 +7,15 @@ uint8_t keyState = KEY_STATE_RELEASE;
 
 bool readKey(int sw)
 {
+  //Boot_Lantern();
   if (digitalRead(sw))
   {
+    //Boot_Lantern();
     return 0;
   }
   else
   {
+    //Boot_Lantern();
     return 1;
   }
 }
@@ -28,6 +31,7 @@ uint8_t keyDetect(int sw)
       if (readKey(sw) == 1)    // 如果按键按下
       {
         keyState = KEY_STATE_WAITING;  // 转换至下一个状态
+        //Boot_Lantern();
       }
       return NOT_PRESSED;    // 返回：按键未按下
       break;
@@ -36,6 +40,7 @@ uint8_t keyDetect(int sw)
       if (readKey(sw) == 1)    // 如果按键按下
       {
         duriation++;
+        Boot_Lantern();
         if (duriation >= PRESSED_TIME)   // 如果经过多次检测，按键仍然按下
         { // 说明没有抖动了，可以确定按键已按下
           duriation = 0;

@@ -2,6 +2,7 @@
 
 void setup() 
 {
+  //Serial.begin(115200);
   if(system_init())
   {
     current_STATUS = STATUS_STD;
@@ -11,10 +12,13 @@ void setup()
     current_STATUS = STATUS_PAIR;
     rfStatus = RF_STATUS_START_PAIR;
   }
+  interface_init();
 }
-
+  
 void loop() 
 {
+  //Serial.println(digitalRead(SW3));
+  /*
   switch (current_STATUS)
   {
     case STATUS_STD:
@@ -29,5 +33,5 @@ void loop()
       DO_STATUS_pair();
       break;
   }
-  
+  */
 }

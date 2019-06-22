@@ -20,6 +20,9 @@
 #define MID 0
 #define RIGHT 2
 
+extern bool ispair[];
+extern bool alarm[];
+
 void interface_init();
 void Boot_Lantern();
 void sw_press();
