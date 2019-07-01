@@ -20,7 +20,7 @@ bool system_init() //初始化端口、RF模块、检测设备是否完成配对
     return 1;
   }
 
-  attachInterrupt(IRQ - 1, isr, FALLING);
+  attachInterrupt(IRQ - 2, isr, FALLING);
 
   Timer1.initialize(INTERVAL);
   Timer1.attachInterrupt(time_isr);
