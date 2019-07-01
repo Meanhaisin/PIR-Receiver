@@ -13,11 +13,10 @@ bool system_init() //初始化端口、RF模块、检测设备是否完成配对
   Timer1.initialize(INTERVAL);
   Timer1.attachInterrupt(time_isr);
   attachInterrupt(IRQ - 1, isr, FALLING);
-<<<<<<< HEAD
+
 
   Boot_Lantern();
-=======
->>>>>>> 190925319ce1a1848eb2acffbe98f1dba4841641
+
 
   if (!radioInit())
   {
@@ -27,10 +26,6 @@ bool system_init() //初始化端口、RF模块、检测设备是否完成配对
   {
     return 1;
   }
-<<<<<<< HEAD
-=======
-
->>>>>>> 190925319ce1a1848eb2acffbe98f1dba4841641
   
 }
 
