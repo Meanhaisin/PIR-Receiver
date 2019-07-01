@@ -100,10 +100,11 @@ uint8_t led_set(bool ispair[]) //生成寄存器使用的二进制代码
 
 void led_pair() //控制配对状态下的led闪烁
 { 
-  if(current_STATUS == STATUS_PAIR && rfStatus != RF_STATUS_STD) //判断是否在配对状态并且配对未完成
+  if(current_STATUS == STATUS_PAIR && rfStatus == RF_STATUS_START_PAIR) //判断是否在配对状态并且配对未完成
   {
   PORTC = led_set(ispair);
   ispair[pos] = !ispair[pos];
+  //PORTC = B00000000;
   //Boot_Lantern();
   setled++;
   }

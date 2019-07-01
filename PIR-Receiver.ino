@@ -2,7 +2,7 @@
 
 void setup() 
 {
-  //Serial.begin(115200);
+  Serial.begin(115200);
   if(system_init())
   {
     current_STATUS = STATUS_STD;
@@ -17,7 +17,7 @@ void setup()
   
 void loop() 
 {
-  //Serial.println(digitalRead(SW3));
+  Serial.println(sw_status[MID]);
   /*
   switch (current_STATUS)
   {
