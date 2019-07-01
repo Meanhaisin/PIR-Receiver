@@ -6,6 +6,7 @@
 #include "interface.h"
 #include "MsTimer2.h"
 #include "TimerOne.h"
+#include <Enerlib.h>
 
 #define BAT A0
 #define IRQ 3

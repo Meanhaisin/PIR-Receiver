@@ -1,7 +1,7 @@
 #ifndef _interface_H
 #define _interface_H
 
-#include "Arduino.h"
+#include <Arduino.h>
 #include "key.h"
 #include "Status.h"
 

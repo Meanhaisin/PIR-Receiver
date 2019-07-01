@@ -1,7 +1,7 @@
 #ifndef _Status_H
 #define _Status_H
 
-#include "Arduino.h"
+#include <Arduino.h>
 #include "system.h" //设备外设，难分类的丢这
 #include "radio.h" //无线相关代码
 #include "key.h"  //按键代码
