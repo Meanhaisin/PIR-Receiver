@@ -42,23 +42,23 @@ void Boot_Lantern() //开机动画
 void sw_press() //控制中键及配对状态下的左右键
 {
   sw_status[MID] = keyDetect(SW1);
-  if(current_STATUS == STATUS_PAIR) //非配对状态下禁用左右键
+  if (current_STATUS == STATUS_PAIR) //非配对状态下禁用左右键
   {
     sw_status[LEFT] = keyDetect(SW2);
     sw_status[RIGHT] = keyDetect(SW3);
 
-    if(sw_status[LEFT] == 1 && rfStatus != RF_STATUS_PAIRING) //配对确认状态下禁用左右键
+    if (sw_status[LEFT] == 1 && rfStatus != RF_STATUS_PAIRING) //配对确认状态下禁用左右键
     {
-      if(setled % 2 == 1) //防止按下左右键改变ispair
+      if (setled % 2 == 1) //防止按下左右键改变ispair
       {
         ispair[pos] = !ispair[pos];
         setled = 0;
       }
       pos = (pos + 4) % 5;
     }
-    if(sw_status[RIGHT] == 1 && rfStatus != RF_STATUS_PAIRING)
+    if (sw_status[RIGHT] == 1 && rfStatus != RF_STATUS_PAIRING)
     {
-      if(setled % 2 == 1)
+      if (setled % 2 == 1)
       {
         ispair[pos] = !ispair[pos];
         setled = 0;
@@ -71,9 +71,9 @@ void sw_press() //控制中键及配对状态下的左右键
 void Alarm() //控制标准状态下的led报警
 {
   uint8_t i;
-  for(i=0;i<5;i++)
+  for (i = 0; i < 5; i++)
   {
-    digitalWrite(LED1 + i,alarm[i]);
+    digitalWrite(LED1 + i, alarm[i]);
   }
 }
 
@@ -81,15 +81,15 @@ uint8_t led_set(bool ispair[]) //生成寄存器使用的二进制代码
 {
   uint8_t i;
   uint8_t re = 0;
-  for(i=0;i<5;i++)
+  for (i = 0; i < 5; i++)
   {
-    if(ispair[i] == 0)
+    if (ispair[i] == 0)
     {
-      bitSet(re,i+1);
+      bitSet(re, i + 1);
     }
     else
     {
-      bitClear(re,i+1);
+      bitClear(re, i + 1);
     }
   }
   return re;
@@ -97,10 +97,24 @@ uint8_t led_set(bool ispair[]) //生成寄存器使用的二进制代码
 
 void led_pair() //控制配对状态下的led闪烁
 {
-  if(current_STATUS == STATUS_PAIR && rfStatus != RF_STATUS_STD) //判断是否在配对状态并且配对未完成
+  if (current_STATUS == STATUS_PAIR && rfStatus != RF_STATUS_STD) //判断是否在配对状态并且配对未完成
   {
     PORTC = led_set(ispair);
-  ispair[pos] = !ispair[pos];
-  setled++;
+    ispair[pos] = !ispair[pos];
+    setled++;
   }
+}
+
+void BZ_alarm()
+{
+  tone(BZ, 1760, 200);
+}
+
+void BZ_noneAlarm()
+{
+  tone(BZ, G4, 250);
+  delay(200);
+  tone(BZ, E4, 250);
+  delay(200);
+  tone(BZ, C4, 250);
 }

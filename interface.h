@@ -20,11 +20,18 @@
 #define MID 0
 #define RIGHT 2
 
+#define C4 262
+#define E4 311
+#define G4 392
+#define A6 1760
+
 void interface_init();
 void Boot_Lantern();
 void sw_press();
 void Alarm();
 uint8_t led_set(bool ispair[]);
 void led_pair();
+void BZ_alarm();
+void BZ_noneAlarm();
 
 #endif
