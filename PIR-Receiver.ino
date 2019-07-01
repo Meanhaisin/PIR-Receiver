@@ -1,8 +1,8 @@
 #include "Status.h"
-
+extern uint8_t setled;
 void setup() 
 {
-  //Serial.begin(115200);
+  Serial.begin(115200);
   if(system_init())
   {
     current_STATUS = STATUS_STD;
@@ -19,6 +19,11 @@ void loop()
 {
   //Serial.println(digitalRead(SW3));
   /*
+  if(sw_status[SW1] != 0)
+  {
+    Serial.println(sw_status[MID]);
+  }
+  */
   switch (current_STATUS)
   {
     case STATUS_STD:
@@ -31,7 +36,8 @@ void loop()
 
     case STATUS_PAIR:
       DO_STATUS_pair();
+      Serial.println(setled);
       break;
   }
-  */
+  
 }

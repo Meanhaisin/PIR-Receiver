@@ -40,7 +40,7 @@ uint8_t keyDetect(int sw)
       if (readKey(sw) == 1)    // 如果按键按下
       {
         duriation++;
-        Boot_Lantern();
+        //Boot_Lantern();
         if (duriation >= PRESSED_TIME)   // 如果经过多次检测，按键仍然按下
         { // 说明没有抖动了，可以确定按键已按下
           duriation = 0;
@@ -89,3 +89,13 @@ uint8_t keyDetect(int sw)
       break;
   }
 }
+
+
+
+
+/*
+uint8_t keyDetect(int sw)
+{
+  
+}
+*/

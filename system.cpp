@@ -2,7 +2,7 @@
 
 bool ledchange = 1;
 bool ledflag = 0;
-long long isr_t;
+
 
 bool system_init() //初始化端口、RF模块、检测设备是否完成配对（未配对进入STATUS_pair,否则进入STATUS_std)
 {
@@ -12,6 +12,9 @@ bool system_init() //初始化端口、RF模块、检测设备是否完成配对
 
   Timer1.initialize(INTERVAL);
   Timer1.attachInterrupt(time_isr);
+  attachInterrupt(IRQ - 1, isr, FALLING);
+
+  Boot_Lantern();
 
   if (!radioInit())
   {
@@ -21,8 +24,7 @@ bool system_init() //初始化端口、RF模块、检测设备是否完成配对
   {
     return 1;
   }
-
-  attachInterrupt(IRQ - 1, isr, FALLING);
+  
 }
 
 uint8_t bat_voltage()
@@ -39,17 +41,16 @@ void isr()
 
 void time_isr()
 {
-  static long long isr_timer = 0;
+  static long isr_timer = 0;
   //Boot_Lantern();
   isr_timer++;
-  isr_t = isr_timer;
   if(isr_timer % 1 == 0) //便于调时
   {
     //Boot_Lantern();
     sw_press();
     //Boot_Lantern();
   }
-  if(isr_timer % 500 == 0)
+  if(isr_timer % 1000 == 0)
   {
     led_pair();
     //isr_timer = 0;
