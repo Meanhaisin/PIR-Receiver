@@ -17,7 +17,7 @@ void setup()
   
 void loop() 
 {
-  //Serial.println(digitalRead(SW3));
+  Serial.println(sw_status[MID]);
   /*
   if(sw_status[SW1] != 0)
   {
