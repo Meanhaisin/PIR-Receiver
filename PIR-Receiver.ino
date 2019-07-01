@@ -17,7 +17,8 @@ void setup()
   
 void loop() 
 {
-  Serial.println(sw_status[MID]);
+  if (sw_status[MID] == SHORT_PRESSED) Serial.println(SHORT_PRESSED);
+  
   /*
   if(sw_status[SW1] != 0)
   {
@@ -36,7 +37,7 @@ void loop()
 
     case STATUS_PAIR:
       DO_STATUS_pair();
-      Serial.println(setled);
+      //Serial.println(setled);
       break;
   }
   

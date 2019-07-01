@@ -16,6 +16,7 @@
 #define LED4 18
 #define LED5 19
 #define BZ 5
+
 #define LEFT 1
 #define MID 0
 #define RIGHT 2
