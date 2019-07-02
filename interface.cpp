@@ -12,11 +12,11 @@ void interface_init()
   digitalWrite(SW2, HIGH);
   pinMode(SW3, OUTPUT);
   digitalWrite(SW3, HIGH);
+  pinMode(LED0, OUTPUT);
   pinMode(LED1, OUTPUT);
   pinMode(LED2, OUTPUT);
   pinMode(LED3, OUTPUT);
   pinMode(LED4, OUTPUT);
-  pinMode(LED5, OUTPUT);
   pinMode(BZ, OUTPUT);
 }
 
@@ -71,7 +71,7 @@ void Alarm() //控制标准状态下的led报警
   uint8_t i;
   for(i=0;i<5;i++)
   {
-    digitalWrite(LED1 + i,alarm[i]);
+    digitalWrite(LED0 + i,alarm[i]);
   }
 }
 

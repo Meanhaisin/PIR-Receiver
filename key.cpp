@@ -4,6 +4,7 @@
   初始状态为：按键按下（KEY_STATE_RELEASE）
 */
 uint8_t keyState = KEY_STATE_RELEASE;
+volatile uint8_t duriation;  // 用于在等待状态中计数
 
 bool readKey(int sw)
 {
@@ -22,7 +23,7 @@ bool readKey(int sw)
 /*
   uint8_t keyDetect(int sw)
   {
-  static uint8_t duriation;  // 用于在等待状态中计数
+  volatile static uint8_t duriation;  // 用于在等待状态中计数
 
   switch (keyState)
   {
@@ -91,7 +92,7 @@ bool readKey(int sw)
 */
 uint8_t keyDetect(int sw)
 {
-  volatile static uint8_t duriation;  // 用于在等待状态中计数
+
   switch (keyState)
   {
     case KEY_STATE_RELEASE:
@@ -107,6 +108,7 @@ uint8_t keyDetect(int sw)
       if (readKey(sw) == 1)
       {
         duriation++;
+        //Serial.println(duriation);
         if (duriation >= LONG_PRESSED_TIME)   // 如果经过多次检测，按键仍然按下
         {
           duriation = 0;
@@ -116,6 +118,7 @@ uint8_t keyDetect(int sw)
       }
       else
       {
+       // Serial.println(readKey(sw));
         duriation = 0;
         keyState = KEY_STATE_RELEASE  ;
         return SHORT_PRESSED;
@@ -129,10 +132,11 @@ uint8_t keyDetect(int sw)
         return LONG_PRESSED;
       }
       break;
-
-    default:
-      keyState = KEY_STATE_RELEASE;
-      return NOT_PRESSED;
-      break;
+      /*
+          default:
+            keyState = KEY_STATE_RELEASE;
+            return NOT_PRESSED;
+            break;
+      */
   }
 }
