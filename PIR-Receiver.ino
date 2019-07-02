@@ -32,6 +32,10 @@ void loop()
   {
     Serial.println("LEFT SHORT_PRESSED");
   }
+  if (sw_status[LEFT] == LONG_PRESSED)
+  {
+    Serial.println("LEFT LONG_PRESSED");
+  }
   if (sw_status[RIGHT] == SHORT_PRESSED)
   {
     Serial.println("RIGHT SHORT_PRESSED");

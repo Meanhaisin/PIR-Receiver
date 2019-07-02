@@ -105,7 +105,7 @@ uint8_t keyState[] = {0, 0, 0, 0, 0, 0, 0, 0};
 */
 uint8_t keyDetect(uint8_t sw)
 {
-  static uint8_t duriation[] = {0, 0, 0, 0, 0, 0, 0, 0};  // 用于在等待状态中计数
+  static unsigned int duriation[] = {0, 0, 0, 0, 0, 0, 0, 0};  // 用于在等待状态中计数
 
   switch (keyState[sw])
   {
