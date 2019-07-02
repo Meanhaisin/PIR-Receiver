@@ -14,7 +14,7 @@
   需要根据单片机速度和按键消抖程序被调用的速度来进行调整
 */
 #define PRESSED_TIME 40
-#define LONG_PRESSED_TIME 255
+#define LONG_PRESSED_TIME 200
 
 #define LONG_PRESSED 2
 #define SHORT_PRESSED 1

@@ -8,8 +8,8 @@
 
 extern uint8_t keyState[]; //按键状态
 extern uint8_t rfStatus; //无线状态
-extern bool readKey(int sw);
-extern uint8_t keyDective(int sw); //按键读取函数
+//extern bool readKey(uint8_t sw);
+extern uint8_t keyDective(uint8_t sw); //按键读取函数
 //extern void led_blink(); //led控制函数
 extern void Alarm(); //报警函数
 
