@@ -14,11 +14,11 @@ void interface_init()
   digitalWrite(SW2, HIGH);
   pinMode(SW3, OUTPUT);
   digitalWrite(SW3, HIGH);
+  pinMode(LED0, OUTPUT);
   pinMode(LED1, OUTPUT);
   pinMode(LED2, OUTPUT);
   pinMode(LED3, OUTPUT);
   pinMode(LED4, OUTPUT);
-  pinMode(LED5, OUTPUT);
   pinMode(BZ, OUTPUT);
 }
 

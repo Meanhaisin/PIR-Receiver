@@ -10,12 +10,13 @@
 #define SW1 2
 #define SW2 4
 #define SW3 7
-#define LED1 15
-#define LED2 16
-#define LED3 17
-#define LED4 18
-#define LED5 19
+#define LED0 15
+#define LED1 16
+#define LED2 17
+#define LED3 18
+#define LED4 19
 #define BZ 5
+
 #define LEFT 1
 #define MID 0
 #define RIGHT 2
@@ -24,6 +25,9 @@
 #define E4 311
 #define G4 392
 #define A6 1760
+
+extern bool ispair[];
+extern bool alarm[];
 
 void interface_init();
 void Boot_Lantern();

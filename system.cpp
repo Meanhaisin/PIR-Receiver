@@ -3,13 +3,18 @@
 bool ledchange = 1;
 bool ledflag = 0;
 
+
 bool system_init() //初始化端口、RF模块、检测设备是否完成配对（未配对进入STATUS_pair,否则进入STATUS_std)
 {
   pinMode(IRQ, INPUT);
 
   interface_init();
 
-  Boot_Lantern();
+  //Timer1.initialize(INTERVAL);
+  //Timer1.attachInterrupt(time_isr);
+  attachInterrupt(IRQ - 1, isr, FALLING);
+
+  //Boot_Lantern();
 
   if (!radioInit())
   {
@@ -19,11 +24,6 @@ bool system_init() //初始化端口、RF模块、检测设备是否完成配对
   {
     return 1;
   }
-
-  attachInterrupt(IRQ - 2, isr, FALLING);
-
-  Timer1.initialize(INTERVAL);
-  Timer1.attachInterrupt(time_isr);
 }
 
 uint8_t bat_voltage()
@@ -40,16 +40,20 @@ void isr()
 
 void time_isr()
 {
-  static uint8_t isr_timer = 0;
+  static long isr_timer = 0;
+  //Boot_Lantern();
   isr_timer++;
-  if(isr_timer >= 1) //便于调时
+  if(isr_timer % 1 == 0) //便于调时
   {
+    //Boot_Lantern();
     sw_press();
+    //Boot_Lantern();
   }
-  if(isr_timer >= 500)
+  if(isr_timer % 1000 == 0)
   {
     led_pair();
-    isr_timer = 0;
+    //isr_timer = 0;
+    //Boot_Lantern();
   }
 }
 /*
@@ -81,7 +85,6 @@ void time_isr()
 
 void blink_block(uint8_t pin, uint8_t t, uint8_t count)
 {
-
   for (uint8_t i = 0; i < count; i++)
   {
     digitalWrite(pin, HIGH);
@@ -89,5 +92,12 @@ void blink_block(uint8_t pin, uint8_t t, uint8_t count)
     digitalWrite(pin, LOW);
     delay(t);
   }
+}
 
+void Powerdown(unsigned long m)
+{
+  if (millis() > m)
+  {
+    LowPower.powerDown(SLEEP_FOREVER, ADC_OFF, BOD_OFF);
+  }
 }
