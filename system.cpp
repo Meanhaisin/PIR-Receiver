@@ -10,11 +10,11 @@ bool system_init() //初始化端口、RF模块、检测设备是否完成配对
 
   interface_init();
 
-  Timer1.initialize(INTERVAL);
-  Timer1.attachInterrupt(time_isr);
+  //Timer1.initialize(INTERVAL);
+  //Timer1.attachInterrupt(time_isr);
   attachInterrupt(IRQ - 1, isr, FALLING);
 
-  Boot_Lantern();
+  //Boot_Lantern();
 
   if (!radioInit())
   {
@@ -85,7 +85,6 @@ void time_isr()
 
 void blink_block(uint8_t pin, uint8_t t, uint8_t count)
 {
-
   for (uint8_t i = 0; i < count; i++)
   {
     digitalWrite(pin, HIGH);
@@ -93,5 +92,4 @@ void blink_block(uint8_t pin, uint8_t t, uint8_t count)
     digitalWrite(pin, LOW);
     delay(t);
   }
-
 }

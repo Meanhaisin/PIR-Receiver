@@ -5,8 +5,13 @@
 /* 按键扫描程序所处的状态
   初始状态为：按键按下（KEY_STATE_RELEASE）
 */
+<<<<<<< HEAD
 //uint8_t keyState = KEY_STATE_RELEASE;
 uint8_t keyState = KEY_STATE_SHORT_PRESSED;
+=======
+uint8_t keyState = KEY_STATE_RELEASE;
+volatile uint8_t duriation;  // 用于在等待状态中计数
+>>>>>>> 73751b5b816d457303c8fc9c00cda807ac188279
 
 bool readKey(int sw)
 {
@@ -37,7 +42,7 @@ uint8_t de_bug()
 /*
   uint8_t keyDetect(int sw)
   {
-  static uint8_t duriation;  // 用于在等待状态中计数
+  volatile static uint8_t duriation;  // 用于在等待状态中计数
 
   switch (keyState)
   {
@@ -106,8 +111,12 @@ uint8_t de_bug()
 */
 uint8_t keyDetect(int sw)
 {
+<<<<<<< HEAD
   //static uint8_t duriation = 1;  // 用于在等待状态中计数
   //Serial.println(duriation);
+=======
+
+>>>>>>> 73751b5b816d457303c8fc9c00cda807ac188279
   switch (keyState)
   {
     /*
@@ -129,8 +138,12 @@ uint8_t keyDetect(int sw)
       if (digitalRead(sw) == 0)
       {
         duriation++;
+<<<<<<< HEAD
         Serial.println(duriation);
         //Boot_Lantern();
+=======
+        //Serial.println(duriation);
+>>>>>>> 73751b5b816d457303c8fc9c00cda807ac188279
         if (duriation >= LONG_PRESSED_TIME)   // 如果经过多次检测，按键仍然按下
         {
           duriation = 0;
@@ -141,6 +154,7 @@ uint8_t keyDetect(int sw)
       }
       else
       {
+       // Serial.println(readKey(sw));
         duriation = 0;
         keyState = KEY_STATE_RELEASE  ;
         return SHORT_PRESSED;
@@ -155,6 +169,7 @@ uint8_t keyDetect(int sw)
         return LONG_PRESSED;
       }
       break;
+<<<<<<< HEAD
 
      /*
     default:
@@ -162,5 +177,13 @@ uint8_t keyDetect(int sw)
       return NOT_PRESSED;
       break;
      */
+=======
+      /*
+          default:
+            keyState = KEY_STATE_RELEASE;
+            return NOT_PRESSED;
+            break;
+      */
+>>>>>>> 73751b5b816d457303c8fc9c00cda807ac188279
   }
 }
