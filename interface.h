@@ -7,9 +7,9 @@
 
 #include <avr/sleep.h>
 
-#define SW1 2
-#define SW2 4
-#define SW3 7
+#define SW1 2 //中键
+#define SW2 4 //左键
+#define SW3 7 //右键
 #define LED0 15
 #define LED1 16
 #define LED2 17
