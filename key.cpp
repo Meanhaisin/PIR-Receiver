@@ -6,7 +6,7 @@
 uint8_t keyState[] = {0,0,0,0,0,0,0,0};
 
 /*
-bool readKey(int sw)
+bool readKey(uint8_t sw)
 {
   //Boot_Lantern();
   if (digitalRead(sw))
@@ -103,7 +103,7 @@ uint8_t de_bug()
   }
   }
 */
-uint8_t keyDetect(int sw)
+uint8_t keyDetect(uint8_t sw)
 {
   //static uint8_t duriation = 1;  // 用于在等待状态中计数
   //Serial.println(duriation);
@@ -119,7 +119,6 @@ uint8_t keyDetect(int sw)
       return NOT_PRESSED;    // 返回：按键未按下
       break;
       
-
     case KEY_STATE_SHORT_PRESSED:
       static uint8_t duriation[] = {0,0,0,0,0,0,0,0};
       //Serial.println(duriation);

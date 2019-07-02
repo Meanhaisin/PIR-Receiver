@@ -14,14 +14,14 @@
   需要根据单片机速度和按键消抖程序被调用的速度来进行调整
 */
 #define PRESSED_TIME 40
-#define LONG_PRESSED_TIME 40
+#define LONG_PRESSED_TIME 255
 
 #define LONG_PRESSED 2
 #define SHORT_PRESSED 1
 #define NOT_PRESSED 0
 
-bool readKey(int sw); // 按键检测函数的返回值，按下为 1，未按下为 0 
-uint8_t keyDetect(int sw);
+//bool readKey(uint8_t sw); // 按键检测函数的返回值，按下为 1，未按下为 0 
+uint8_t keyDetect(uint8_t sw);
 //uint8_t de_bug();
 
 #endif

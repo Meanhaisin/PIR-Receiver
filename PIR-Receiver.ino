@@ -34,7 +34,7 @@ void loop()
     Serial.println("RIGHT SHORT_PRESSED");
   }
   
-  //Serial.println(digitalRead(SW1));
+  Serial.println(keyDetect(SW1));
   /*
     if(sw_status[SW1] != 0)
     {
