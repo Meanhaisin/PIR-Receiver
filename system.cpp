@@ -14,7 +14,7 @@ bool system_init() //初始化端口、RF模块、检测设备是否完成配对
   //Timer1.attachInterrupt(time_isr);
   attachInterrupt(IRQ - 1, isr, FALLING);
 
-  //Boot_Lantern();
+  Boot_Lantern();
 
   if (!radioInit())
   {
