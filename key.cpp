@@ -110,7 +110,6 @@ uint8_t keyDetect(int sw)
 {
   //static uint8_t duriation = 1;  // 用于在等待状态中计数
   //Serial.println(duriation);
-
   switch (keyState)
   {
     /*
@@ -132,7 +131,6 @@ uint8_t keyDetect(int sw)
       if (digitalRead(sw) == 0)
       {
         duriation++;
-        
         //Serial.println(duriation);
         //Boot_Lantern();
         if (duriation >= LONG_PRESSED_TIME)   // 如果经过多次检测，按键仍然按下
@@ -145,10 +143,17 @@ uint8_t keyDetect(int sw)
       }
       else
       {
-       // Serial.println(readKey(sw));
-        duriation = 0;
-        keyState = KEY_STATE_RELEASE  ;
-        return SHORT_PRESSED;
+        if(duriation == 0)
+        {
+          return NOT_PRESSED;
+        }
+        else
+        {
+          // Serial.println(readKey(sw));
+          duriation = 0;
+          keyState = KEY_STATE_RELEASE  ;
+          return SHORT_PRESSED;
+        }
       }
       
       break;
