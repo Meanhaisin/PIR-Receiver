@@ -1,5 +1,7 @@
 #include "Status.h"
+
 extern uint8_t setled;
+
 void setup()
 {
   Serial.begin(115200);
@@ -30,7 +32,7 @@ void loop()
     Serial.println(sw_status[MID]);
     }
   */
-
+/*
   switch (current_STATUS)
   {
     case STATUS_STD:
@@ -46,4 +48,5 @@ void loop()
       //Serial.println(setled);
       break;
   }
+  */
 }

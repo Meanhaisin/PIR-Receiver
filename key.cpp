@@ -5,8 +5,14 @@
 /* 按键扫描程序所处的状态
   初始状态为：按键按下（KEY_STATE_RELEASE）
 */
+<<<<<<< HEAD
 uint8_t keyState[] = {0,0,0,0,0,0,0,0};
+=======
+>>>>>>> c0a8b444e0134e53489a4548f2c68507f677fb01
 
+uint8_t keyState = KEY_STATE_RELEASE;
+
+/*
 bool readKey(int sw)
 {
   //Boot_Lantern();
@@ -21,6 +27,7 @@ bool readKey(int sw)
     return 1;
   }
 }
+*/
 /*
 uint8_t de_bug()
 {
@@ -162,11 +169,10 @@ uint8_t keyDetect(int sw)
         return LONG_PRESSED;
       }
       break;
-      /*
-          default:
-            keyState = KEY_STATE_RELEASE;
-            return NOT_PRESSED;
-            break;
-      */
+
+    default:
+      keyState = KEY_STATE_SHORT_PRESSED;
+      return NOT_PRESSED;
+      break;
   }
 }

@@ -1,6 +1,6 @@
 #include"interface.h"
 
-uint8_t sw_status[] = {0, 0, 0};
+uint8_t sw_status[] = {NOT_PRESSED, NOT_PRESSED, NOT_PRESSED};
 uint8_t pos = 2;
 volatile uint8_t setled = 0;
 
@@ -40,6 +40,7 @@ void Boot_Lantern() //开机动画
 void sw_press() //控制中键及配对状态下的左右键
 {
   sw_status[MID] = keyDetect(SW1);
+  
   if(current_STATUS == STATUS_PAIR) //非配对状态下禁用左右键
   {
     sw_status[LEFT] = keyDetect(SW2);
@@ -64,6 +65,7 @@ void sw_press() //控制中键及配对状态下的左右键
       pos = (pos + 1) % 5;
     }
   }
+  
 }
 
 void Alarm() //控制标准状态下的led报警
