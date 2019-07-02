@@ -1,7 +1,5 @@
 #include "key.h"
 
-//bool keyflag = 0;
-
 /* 按键扫描程序所处的状态
   初始状态为：按键按下（KEY_STATE_RELEASE）
 */
@@ -132,7 +130,7 @@ uint8_t keyDetect(int sw)
         duriation[sw]++;
         //Serial.println(duriation);
         //Boot_Lantern();
-        if (duriation[sw] >= LONG_PRESSED_TIME)   // 如果经过多次检测，按键仍然按下
+        if (duriation > LONG_PRESSED_TIME)   // 如果经过多次检测，按键仍然按下
         {
           duriation[sw] = 0;
           //Boot_Lantern();
