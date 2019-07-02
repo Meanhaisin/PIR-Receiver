@@ -123,18 +123,18 @@ uint8_t keyDetect(int sw)
       
 
     case KEY_STATE_SHORT_PRESSED:
-      static uint8_t duriation = 0;
+      static uint8_t duriation[] = {0,0,0,0,0,0,0,0};
       //Serial.println(duriation);
       //if(duriation % 3 == 0)
       
       if (digitalRead(sw) == 0)
       {
-        duriation++;
+        duriation[sw]++;
         //Serial.println(duriation);
         //Boot_Lantern();
-        if (duriation >= LONG_PRESSED_TIME)   // 如果经过多次检测，按键仍然按下
+        if (duriation[sw] >= LONG_PRESSED_TIME)   // 如果经过多次检测，按键仍然按下
         {
-          duriation = 0;
+          duriation[sw] = 0;
           //Boot_Lantern();
           keyState[sw] = KEY_STATE_LONG_PRESSED;  // 转换至下一个状态
           //return LONGT_PRESSED;
@@ -142,17 +142,9 @@ uint8_t keyDetect(int sw)
       }
       else
       {
-        if(duriation == 0)
-        {
-          return NOT_PRESSED;
-        }
-        else
-        {
-          // Serial.println(readKey(sw));
-          duriation = 0;
-          keyState[sw] = KEY_STATE_RELEASE  ;
-          return SHORT_PRESSED;
-        }
+        duriation[sw] = 0;
+        keyState[sw] = KEY_STATE_RELEASE;
+        return SHORT_PRESSED;
       }
       
       break;
