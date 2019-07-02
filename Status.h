@@ -6,7 +6,7 @@
 #include "radio.h" //无线相关代码
 #include "key.h"  //按键代码
 
-extern uint8_t keyState; //按键状态
+extern uint8_t keyState[]; //按键状态
 extern uint8_t rfStatus; //无线状态
 extern bool readKey(int sw);
 extern uint8_t keyDective(int sw); //按键读取函数

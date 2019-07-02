@@ -3,9 +3,7 @@
 /* 按键扫描程序所处的状态
   初始状态为：按键按下（KEY_STATE_RELEASE）
 */
-
-uint8_t keyState = KEY_STATE_RELEASE;
-//bool keyflag = 0;
+uint8_t keyState[] = {0,0,0,0,0,0,0,0};
 
 /*
 bool readKey(int sw)
@@ -109,18 +107,18 @@ uint8_t keyDetect(int sw)
 {
   //static uint8_t duriation = 1;  // 用于在等待状态中计数
   //Serial.println(duriation);
-  switch (keyState)
+  switch (keyState[sw])
   {
-    /*
+    
     case KEY_STATE_RELEASE:
       if (digitalRead(sw) == 0)    // 如果按键按下
       {
-        keyState = KEY_STATE_SHORT_PRESSED;  // 转换至下一个状态
+        keyState[sw] = KEY_STATE_SHORT_PRESSED;  // 转换至下一个状态
         //Boot_Lantern();
       }
       return NOT_PRESSED;    // 返回：按键未按下
       break;
-      */
+      
 
     case KEY_STATE_SHORT_PRESSED:
       static uint8_t duriation = 0;
@@ -136,7 +134,7 @@ uint8_t keyDetect(int sw)
         {
           duriation = 0;
           //Boot_Lantern();
-          keyState = KEY_STATE_LONG_PRESSED;  // 转换至下一个状态
+          keyState[sw] = KEY_STATE_LONG_PRESSED;  // 转换至下一个状态
           //return LONGT_PRESSED;
         }
       }
@@ -150,7 +148,7 @@ uint8_t keyDetect(int sw)
         {
           // Serial.println(readKey(sw));
           duriation = 0;
-          keyState = KEY_STATE_RELEASE  ;
+          keyState[sw] = KEY_STATE_RELEASE  ;
           return SHORT_PRESSED;
         }
       }
@@ -160,13 +158,13 @@ uint8_t keyDetect(int sw)
     case KEY_STATE_LONG_PRESSED:
       if (digitalRead(sw) == 1)      // 如果按键松开
       {
-        keyState = KEY_STATE_SHORT_PRESSED;  // 回到按键松开的状态
+        keyState[sw] = KEY_STATE_RELEASE;  // 回到按键松开的状态
         return LONG_PRESSED;
       }
       break;
 
     default:
-      keyState = KEY_STATE_SHORT_PRESSED;
+      keyState[sw] = KEY_STATE_SHORT_PRESSED;
       return NOT_PRESSED;
       break;
   }
