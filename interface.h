@@ -4,6 +4,7 @@
 #include "Arduino.h"
 #include "key.h"
 #include "Status.h"
+#include "system.h"
 
 #include <avr/sleep.h>
 
@@ -23,6 +24,7 @@
 
 extern bool ispair[];
 extern bool alarm[];
+extern unsigned int blink_rate;
 
 void interface_init();
 void Boot_Lantern();
@@ -30,5 +32,6 @@ void sw_press();
 void Alarm();
 uint8_t led_set(bool ispair[]);
 void led_pair();
+void set_blink_rate(int f);
 
 #endif

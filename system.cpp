@@ -2,7 +2,7 @@
 
 bool ledchange = 1;
 bool ledflag = 0;
-
+unsigned int blink_rate = 1000;
 
 bool system_init() //初始化端口、RF模块、检测设备是否完成配对（未配对进入STATUS_pair,否则进入STATUS_std)
 {
@@ -43,13 +43,13 @@ void time_isr()
   static long isr_timer = 0;
   //Boot_Lantern();
   isr_timer++;
-  if(isr_timer % 1 == 0) //便于调时
+  if (isr_timer % 1 == 0) //便于调时
   {
     //Boot_Lantern();
     sw_press();
     //Boot_Lantern();
   }
-  if(isr_timer % 1000 == 0)
+  if (isr_timer % blink_rate == 0)
   {
     led_pair();
     //isr_timer = 0;

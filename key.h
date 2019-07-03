@@ -4,7 +4,7 @@
 #include "Arduino.h"
 #include "interface.h"
 
-/* 按键去抖动状态机中的三个状态 */
+/* 按键状态机中的三个状态 */
 #define KEY_STATE_RELEASE   0 // 按键未按下
 #define KEY_STATE_WAITING   1 // 等待（消抖）
 #define KEY_STATE_SHORT_PRESSED   2 // 按键按下（等待释放）
@@ -14,7 +14,7 @@
   需要根据单片机速度和按键消抖程序被调用的速度来进行调整
 */
 //#define PRESSED_TIME 40
-#define LONG_PRESSED_TIME 500
+#define LONG_PRESSED_TIME 350
 
 #define LONG_PRESSED 2
 #define SHORT_PRESSED 1
