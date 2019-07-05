@@ -14,6 +14,8 @@ extern byte rec_pipe[5][5];
 #define SN_WIDTH 4
 #define SN_OFFSITE 1020
 
+#define NONE 0xFF
+
 void writePipe(byte pipe[]); //写入管道
 void writeNO(uint8_t no ,byte pipe[]); //设置标志位(管道第一位)
 void readPipe();

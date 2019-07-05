@@ -4,7 +4,7 @@ bool ledchange = 1;
 bool ledflag = 0;
 unsigned int blink_rate = 1000;
 
-bool system_init() //初始化端口、RF模块、检测设备是否完成配对（未配对进入STATUS_pair,否则进入STATUS_std)
+void system_init() //初始化端口、RF模块、检测设备是否完成配对（未配对进入STATUS_pair,否则进入STATUS_std)
 {
   pinMode(IRQ, INPUT);
 
@@ -16,13 +16,19 @@ bool system_init() //初始化端口、RF模块、检测设备是否完成配对
 
   Boot_Lantern();
 
-  if (!radioInit())
+  if (radioInit())
   {
-    return 0;
+    current_STATUS = STATUS_STD;
   }
   else
   {
-    return 1;
+    current_STATUS = STATUS_PAIR;
+    rfStatus = RF_STATUS_START_PAIR;
+  }
+
+  for(int i = 0; i < 5; i++)
+  {
+    Serial.println(ispair[i]);
   }
 }
 

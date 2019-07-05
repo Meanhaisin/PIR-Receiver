@@ -11,6 +11,7 @@
 #include "key.h"
 #include "interface.h"
 
+
 #define CE 9
 #define CSN 10
 
@@ -30,6 +31,7 @@ extern uint8_t pos;
 const byte pair_pipe[5] = {'P', 'p', 'a','i' ,'r'}; //配对默认管道
 
 bool radioInit();
+void open_listening();
 bool radioRec(); //接收
 //void radioSend(bool flag); //发送
 void radioPair(); //配对函数

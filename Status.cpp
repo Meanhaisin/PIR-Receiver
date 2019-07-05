@@ -6,7 +6,7 @@ bool alarm[] = {0, 0, 0, 0, 0};
 void DO_STATUS_std()
 {
   Alarm();
-  Serial.println("STATUS_STD");
+  //Serial.println("STATUS_STD");
   if(sw_status[MID] == LONG_PRESSED)
   {
     sw_status[MID] = NOT_PRESSED;

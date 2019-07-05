@@ -1,4 +1,5 @@
 #include "radio.h"
+#include "printf.h"
 
 byte rec_pipe[5][5]; //接收管道,从EEPROM读取
 uint8_t rfStatus = RF_STATUS_START_PAIR;
@@ -13,24 +14,28 @@ bool radioInit()
   RF.setPALevel(RF24_PA_HIGH); //发射功率设定,测试后可适当调小以节能
   RF.setPayloadSize(PAY_LOAD_SIZE_STD); //发射负载大小(Byte)
   RF.maskIRQ(1, 1, 0); //(tx_ok,tx_fail,rx_ready) 设置中断类型,屏蔽发送、发送失败中断,保留接收中断
-  readPipe();
-  delay(4);
   if (pairCheck())
   {
-    for (uint8_t i = 0; i < PIPE_NUM_MAX; i++)
-    {
-      if (ispair[i])
-      {
-        RF.openReadingPipe(REC_READINGPIPE_OFFSITE + i, rec_pipe[i]);
-      }
-    }
-    RF.startListening();
+    open_listening();
     return 1;
   }
   else
   {
     return 0;
   }
+}
+
+void open_listening()
+{
+  readPipe();
+  for (uint8_t i = 0; i < PIPE_NUM_MAX; i++)
+  {
+    if (ispair[i])
+    {
+      RF.openReadingPipe(REC_READINGPIPE_OFFSITE + i, rec_pipe[i]);
+    }
+  }
+  RF.startListening();
 }
 
 bool radioRec()
@@ -65,11 +70,21 @@ void radioPair()
       RF.setPayloadSize(PAY_LOAD_SIZE_PAIR);
       RF.openWritingPipe(pair_pipe);
       //Boot_Lantern();
+      /*
+        printf_begin();
+        //输出测试
+        RF.printDetails();
+        Serial.end();
+      */
       if (sw_status[MID] == SHORT_PRESSED)
       {
         rfStatus = RF_STATUS_PAIRING;
         readSN(tmp_pipe);
         tmp_pipe[0] = pos;
+        //        for (int i = 0; i < 5; i++)
+        //        {
+        //          Serial.write(tmp_pipe[i]);
+        //        }
         set_blink_rate(500);
         //Boot_Lantern();
       }
@@ -77,18 +92,26 @@ void radioPair()
       {
         sw_status[MID] = NOT_PRESSED;
         current_STATUS = STATUS_STD;
+
+        RF.setPayloadSize(PAY_LOAD_SIZE_STD);
+        open_listening();
       }
       break;
 
     case RF_STATUS_PAIRING:
-      success = RF.write(tmp_pipe, sizeof(tmp_pipe));
+      success = RF.write(&tmp_pipe, sizeof(tmp_pipe));
       if (success)
       {
         ispair[pos] = 1;
+        writeNO(pos,tmp_pipe);
+        
         rfStatus = RF_STATUS_START_PAIR;
-        RF.setPayloadSize(PAY_LOAD_SIZE_STD);
         current_STATUS = STATUS_STD;
-        blink_block(pos,10,3);
+
+        RF.setPayloadSize(PAY_LOAD_SIZE_STD);
+        open_listening();
+
+        blink_block(pos, 10, 3);
       }
       break;
   }
@@ -151,13 +174,13 @@ bool pairCheck()
 
   for (uint8_t i = 0 ; i < 5 ; i++)
   {
-    if (EEPROM.read(NO_OFFSITE + i) != 0)
+    if (EEPROM.read(NO_OFFSITE + i) == NONE)
     {
-      ispair[i] = 1;
+      ispair[i] = 0;
     }
     else
     {
-      ispair[i] = 0;
+      ispair[i] = 1;
     }
   }
 

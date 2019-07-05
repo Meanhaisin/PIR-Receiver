@@ -18,7 +18,7 @@ extern volatile uint8_t current_STATUS;
 extern bool alarm[5];
 extern uint8_t keyStatus;
 
-bool system_init();
+void system_init();
 uint8_t bat_voltage();
 void isr();
 void time_isr();
