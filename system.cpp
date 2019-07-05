@@ -25,11 +25,12 @@ void system_init() //初始化端口、RF模块、检测设备是否完成配对
     current_STATUS = STATUS_PAIR;
     rfStatus = RF_STATUS_START_PAIR;
   }
-
+  /*
   for(int i = 0; i < 5; i++)
   {
     Serial.println(ispair[i]);
   }
+  */
 }
 
 uint8_t bat_voltage()

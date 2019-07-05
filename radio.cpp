@@ -1,5 +1,4 @@
 #include "radio.h"
-#include "printf.h"
 
 byte rec_pipe[5][5]; //接收管道,从EEPROM读取
 uint8_t rfStatus = RF_STATUS_START_PAIR;
@@ -61,7 +60,7 @@ bool radioRec()
 void radioPair()
 {
   bool success = 0;
-  byte tmp_pipe[5];
+  static byte tmp_pipe[5];
 
   switch (rfStatus)
   {
@@ -70,27 +69,18 @@ void radioPair()
       RF.setPayloadSize(PAY_LOAD_SIZE_PAIR);
       RF.openWritingPipe(pair_pipe);
       //Boot_Lantern();
-      /*
-        printf_begin();
-        //输出测试
-        RF.printDetails();
-        Serial.end();
-      */
+
       if (sw_status[MID] == SHORT_PRESSED)
       {
         rfStatus = RF_STATUS_PAIRING;
         readSN(tmp_pipe);
         tmp_pipe[0] = pos;
-        //        for (int i = 0; i < 5; i++)
-        //        {
-        //          Serial.write(tmp_pipe[i]);
-        //        }
         set_blink_rate(500);
         //Boot_Lantern();
       }
       else if (sw_status[MID] == LONG_PRESSED)
       {
-        sw_status[MID] = NOT_PRESSED;
+        //sw_status[MID] = NOT_PRESSED;
         current_STATUS = STATUS_STD;
 
         RF.setPayloadSize(PAY_LOAD_SIZE_STD);
@@ -99,19 +89,19 @@ void radioPair()
       break;
 
     case RF_STATUS_PAIRING:
-      success = RF.write(&tmp_pipe, sizeof(tmp_pipe));
+      success = RF.write(&tmp_pipe, sizeof(&tmp_pipe));
       if (success)
       {
         ispair[pos] = 1;
-        writeNO(pos,tmp_pipe);
-        
+        writeNO(pos, tmp_pipe);
+
         rfStatus = RF_STATUS_START_PAIR;
         current_STATUS = STATUS_STD;
 
         RF.setPayloadSize(PAY_LOAD_SIZE_STD);
         open_listening();
 
-        blink_block(pos, 10, 3);
+        blink_block(pos + LED0, 100, 3);
       }
       break;
   }
