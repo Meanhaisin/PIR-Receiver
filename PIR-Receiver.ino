@@ -1,6 +1,6 @@
 #include "Status.h"
 
-extern uint8_t setled;
+//extern uint8_t setled;
 
 void setup()
 {
