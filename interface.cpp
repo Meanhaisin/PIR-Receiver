@@ -81,7 +81,9 @@ uint8_t led_set(bool ispair[]) //生成寄存器使用的二进制代码
 {
   uint8_t i;
   uint8_t re = 0;
+
   //Boot_Lantern();
+
   for (i = 0; i < 5; i++)
   {
     if (ispair[i] == 0)
@@ -100,7 +102,6 @@ uint8_t led_set(bool ispair[]) //生成寄存器使用的二进制代码
 
 void led_pair() //控制配对状态下的led闪烁
 {
-
   if (current_STATUS == STATUS_PAIR)
   {
     PORTC = led_set(ispair);
@@ -114,4 +115,18 @@ void led_pair() //控制配对状态下的led闪烁
 void set_blink_rate(int f)
 {
   blink_rate = f;
+}
+
+void BZ_alarm()
+{
+  tone(BZ, 1760, 200);
+}
+
+void BZ_noneAlarm()
+{
+  tone(BZ, G4, 250);
+  delay(200);
+  tone(BZ, E4, 250);
+  delay(200);
+  tone(BZ, C4, 250);
 }

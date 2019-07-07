@@ -1,8 +1,8 @@
 #ifndef _ROM_H
 #define _ROM_H
 
-#include "Arduino.h"
-#include "EEPROM.h"
+#include <Arduino.h>
+#include <EEPROM.h>
 #include "radio.h"
 
 #define PIPE_WIDTH 5

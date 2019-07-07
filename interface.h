@@ -1,7 +1,7 @@
 #ifndef _interface_H
 #define _interface_H
 
-#include "Arduino.h"
+#include <Arduino.h>
 #include "key.h"
 #include "Status.h"
 #include "system.h"
@@ -22,9 +22,16 @@
 #define MID 0
 #define RIGHT 2
 
+#define C4 262
+#define E4 311
+#define G4 392
+#define A6 1760
+
 extern bool ispair[];
 extern bool alarm[];
 extern unsigned int blink_rate;
+extern bool ispair[];
+extern bool alarm[];
 
 void interface_init();
 void Boot_Lantern();
@@ -33,5 +40,7 @@ void Alarm();
 uint8_t led_set(bool ispair[]);
 void led_pair();
 void set_blink_rate(int f);
+void BZ_alarm();
+void BZ_noneAlarm();
 
 #endif

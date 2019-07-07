@@ -15,6 +15,8 @@ void DO_STATUS_std()
     set_blink_rate(1000);
     //Boot_Lantern();
   }
+
+  Powerdown(7200000);
 }
 
 void DO_STATUS_msg()

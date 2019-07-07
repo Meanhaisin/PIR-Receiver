@@ -53,6 +53,7 @@ void time_isr()
     sw_press();
     //Boot_Lantern();
   }
+  
   if (isr_timer % blink_rate == 0)
   {
     led_pair();
@@ -95,5 +96,13 @@ void blink_block(uint8_t pin, uint8_t t, uint8_t count)
     delay(t);
     digitalWrite(pin, LOW);
     delay(t);
+  }
+}
+
+void Powerdown(unsigned long m)
+{
+  if (millis() > m)
+  {
+    LowPower.powerDown(SLEEP_FOREVER, ADC_OFF, BOD_OFF);
   }
 }

@@ -62,11 +62,13 @@ bool radioRec()
   if (msg % 2 == 1)
   {
     alarm[pipeNum - 1] = 1;
+    BZ_alarm();
     return 1;
   }
   else
   {
     alarm[pipeNum -1 ] = 0;
+    BZ_noneAlarm();
     return 0;
   }
 }
