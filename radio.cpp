@@ -1,5 +1,5 @@
 #include "radio.h"
-#include "printf.h"
+//#include "printf.h"
 
 byte rec_pipe[5][5]; //接收管道,从EEPROM读取
 uint8_t rfStatus = RF_STATUS_START_PAIR;
@@ -30,13 +30,11 @@ void open_listening()
   readPipe();
   for (uint8_t i = 0; i < PIPE_NUM_MAX; i++)
   {
-    if (ispair[i])
-    {
-      RF.openReadingPipe(REC_READINGPIPE_OFFSITE + i, rec_pipe[i]);
-    }
+    RF.openReadingPipe(REC_READINGPIPE_OFFSITE + i, rec_pipe[i]);
   }
   RF.startListening();
-  for(int i = 0; i < 5; i++)
+/*
+  for (int i = 0; i < 5; i++)
   {
     for (int t = 0; t < 5; t++)
     {
@@ -44,11 +42,12 @@ void open_listening()
     }
     Serial.println("");
   }
-  /*
+*/
+/*
   printf_begin();
   //输出测试
   RF.printDetails();
-  */
+*/
 }
 
 bool radioRec()
@@ -58,23 +57,22 @@ bool radioRec()
 
   RF.available(&pipeNum);
   RF.read(&msg, sizeof(msg));
-  Serial.println(msg);
+  //Serial.println(msg);
 
   if (msg % 2 == 1)
   {
-    alarm[pipeNum] = 1;
+    alarm[pipeNum - 1] = 1;
     return 1;
   }
   else
   {
-    alarm[pipeNum] = 0;
+    alarm[pipeNum -1 ] = 0;
     return 0;
   }
 }
 
 void radioPair()
 {
-  bool success = 0;
   static byte tmp_pipe[5];
 
   switch (rfStatus)
@@ -104,8 +102,7 @@ void radioPair()
       break;
 
     case RF_STATUS_PAIRING:
-      success = RF.write(&tmp_pipe, sizeof(tmp_pipe));
-      if (success)
+      if (RF.write(&tmp_pipe, sizeof(tmp_pipe)))
       {
         ispair[pos] = 1;
         writeNO(pos, tmp_pipe);
