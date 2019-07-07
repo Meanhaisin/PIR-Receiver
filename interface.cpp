@@ -20,20 +20,15 @@ void interface_init()
   pinMode(BZ, OUTPUT);
 }
 
-void Boot_Lantern() //开机动画
+void Boot_Lantern(uint8_t c = 3) //开机动画
 {
+  for(uint8_t i = 0; i < c; i++)
+  {
   PORTC = B00101010;
   delay(400);
   PORTC = B00010100;
   delay(400);
-  PORTC = B00101010;
-  delay(400);
-  PORTC = B00010100;
-  delay(400);
-  //PORTC = B00101010;
-  //delay(400);
-  //PORTC = B00010100;
-  //delay(400);
+  }
   PORTC = B00000000;
 }
 
@@ -119,16 +114,16 @@ void set_blink_rate(int f)
 
 void BZ_alarm()
 {
-  tone(BZ, 1760, 200);
+  tone(BZ, A6, 200);
 }
 
 void BZ_noneAlarm()
 {
   /*
-  tone(BZ, G4, 250);
-  delay(200);
-  tone(BZ, E4, 250);
-  delay(200);
+    tone(BZ, G4, 250);
+    delay(200);
+    tone(BZ, E4, 250);
+    delay(200);
   */
   tone(BZ, C4, 250);
 }

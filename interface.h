@@ -34,7 +34,7 @@ extern bool ispair[];
 extern bool alarm[];
 
 void interface_init();
-void Boot_Lantern();
+void Boot_Lantern(uint8_t c = 3);
 void sw_press();
 void Alarm();
 uint8_t led_set(bool ispair[]);
