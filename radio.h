@@ -14,9 +14,8 @@
 #define CE 9
 #define CSN 10
 
-//#define RF_STATUS_STD 0
-#define RF_STATUS_START_PAIR 1
-#define RF_STATUS_PAIRING 2
+#define RF_STATUS_START_PAIR 0
+#define RF_STATUS_PAIRING 1
 
 #define PAY_LOAD_SIZE_STD 1 //标准发射负载大小
 #define PAY_LOAD_SIZE_PAIR 5 //配对发射负载大小
@@ -31,7 +30,6 @@ const byte pair_pipe[5] = {'P', 'p', 'a','i' ,'r'}; //配对默认管道
 bool radioInit();
 void open_listening();
 bool radioRec(); //接收
-//void radioSend(bool flag); //发送
 void radioPair(); //配对函数
 bool pairCheck(); //配对检查(检查标志位)
 
