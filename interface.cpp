@@ -124,9 +124,11 @@ void BZ_alarm()
 
 void BZ_noneAlarm()
 {
+  /*
   tone(BZ, G4, 250);
   delay(200);
   tone(BZ, E4, 250);
   delay(200);
+  */
   tone(BZ, C4, 250);
 }
