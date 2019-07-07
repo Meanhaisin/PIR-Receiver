@@ -1,4 +1,5 @@
 #include "radio.h"
+#include "printf.h"
 
 byte rec_pipe[5][5]; //接收管道,从EEPROM读取
 uint8_t rfStatus = RF_STATUS_START_PAIR;
@@ -35,6 +36,19 @@ void open_listening()
     }
   }
   RF.startListening();
+  for(int i = 0; i < 5; i++)
+  {
+    for (int t = 0; t < 5; t++)
+    {
+      Serial.print(rec_pipe[i][t]);
+    }
+    Serial.println("");
+  }
+  /*
+  printf_begin();
+  //输出测试
+  RF.printDetails();
+  */
 }
 
 bool radioRec()
@@ -44,8 +58,9 @@ bool radioRec()
 
   RF.available(&pipeNum);
   RF.read(&msg, sizeof(msg));
+  Serial.println(msg);
 
-  if (msg % 10 == 1)
+  if (msg % 2 == 1)
   {
     alarm[pipeNum] = 1;
     return 1;
@@ -89,7 +104,7 @@ void radioPair()
       break;
 
     case RF_STATUS_PAIRING:
-      success = RF.write(&tmp_pipe, sizeof(&tmp_pipe));
+      success = RF.write(&tmp_pipe, sizeof(tmp_pipe));
       if (success)
       {
         ispair[pos] = 1;

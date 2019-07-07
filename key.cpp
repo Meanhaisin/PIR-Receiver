@@ -151,11 +151,11 @@ uint8_t keyDetect(uint8_t sw)
         return NOT_PRESSED;
       }
       break;
-
+  /*
     default:
       keyState[sw] = KEY_STATE_RELEASE;
       return NOT_PRESSED;
       break;
-
+    */
   }
 }

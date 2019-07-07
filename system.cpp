@@ -10,10 +10,6 @@ void system_init() //初始化端口、RF模块、检测设备是否完成配对
 
   interface_init();
 
-  Timer1.initialize(INTERVAL);
-  Timer1.attachInterrupt(time_isr);
-  attachInterrupt(IRQ - 1, isr, FALLING);
-
   Boot_Lantern();
 
   if (radioInit())
@@ -31,6 +27,9 @@ void system_init() //初始化端口、RF模块、检测设备是否完成配对
     Serial.println(ispair[i]);
   }
   */
+  Timer1.initialize(INTERVAL);
+  Timer1.attachInterrupt(time_isr);
+  attachInterrupt(IRQ - 2, isr, FALLING);
 }
 
 uint8_t bat_voltage()

@@ -5,16 +5,15 @@
 #include "EEPROM.h"
 #include "radio.h"
 
-extern byte rec_pipe[5][5];
-
 #define PIPE_WIDTH 5
 #define PIPE_OFFSITE 0
 #define NO_OFFSITE 4
 #define PIPE_NUM_MAX 5 
 #define SN_WIDTH 4
 #define SN_OFFSITE 1020
-
 #define NONE 0xFF
+
+extern byte rec_pipe[5][5];
 
 void writePipe(byte pipe[]); //写入管道
 void writeNO(uint8_t no ,byte pipe[]); //设置标志位(管道第一位)

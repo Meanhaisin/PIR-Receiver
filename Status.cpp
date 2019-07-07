@@ -19,6 +19,7 @@ void DO_STATUS_std()
 
 void DO_STATUS_msg()
 {
+  Serial.println("IRQ");
   radioRec();
   current_STATUS = STATUS_STD;
 }

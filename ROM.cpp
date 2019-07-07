@@ -23,9 +23,9 @@ void readPipe()
     }
   }
 
-  for (uint8_t i = NO_OFFSITE; i < PIPE_NUM_MAX; i++)
+  for (uint8_t i = 0; i < PIPE_NUM_MAX; i++)
   {
-    rec_pipe[i][0] = EEPROM.read(i);
+    rec_pipe[i][0] = EEPROM.read(i + NO_OFFSITE);
   }
 }
 
