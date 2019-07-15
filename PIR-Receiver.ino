@@ -10,7 +10,7 @@ void setup()
 
 void loop()
 {
-  /*
+  
     if (sw_status[MID] == SHORT_PRESSED)
     {
     Serial.println("MID SHORT_PRESSED");
@@ -31,7 +31,7 @@ void loop()
     {
     Serial.println("RIGHT SHORT_PRESSED");
     }
-  */
+  
   //Serial.println(keyDetect(SW1));
 
   switch (current_STATUS)

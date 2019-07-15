@@ -16,7 +16,7 @@ void DO_STATUS_std()
     //Boot_Lantern();
   }
 
-  Powerdown(7200000,3);
+  //Powerdown(7200000,3);
 }
 
 void DO_STATUS_msg()

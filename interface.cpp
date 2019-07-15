@@ -41,7 +41,7 @@ void sw_press() //控制中键及配对状态下的左右键
     sw_status[LEFT] = keyDetect(SW2);
     sw_status[RIGHT] = keyDetect(SW3);
 
-    if (sw_status[LEFT] == SHORT_PRESSED && rfStatus != RF_STATUS_PAIRING) //配对确认状态下禁用左右键
+    if (sw_status[LEFT] == SHORT_PRESSED && rfStatus == RF_STATUS_START_PAIR) //配对确认状态下禁用左右键
     {
       if (setled % 2 == 1) //防止按下左右键改变ispair
       {
@@ -50,7 +50,7 @@ void sw_press() //控制中键及配对状态下的左右键
       }
       pos = (pos + 4) % 5;
     }
-    if (sw_status[RIGHT] == 1 && rfStatus != RF_STATUS_PAIRING)
+    if (sw_status[RIGHT] == 1 && rfStatus == RF_STATUS_START_PAIR)
     {
       if (setled % 2 == 1)
       {
