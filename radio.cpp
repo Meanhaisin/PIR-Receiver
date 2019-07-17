@@ -103,7 +103,7 @@ void radioPair()
         RF.setPayloadSize(PAY_LOAD_SIZE_STD);
         open_listening();
 
-        attachInterrupt(digitalPinToInterrupt(IRQ), isr, FALLING);
+        attachInterrupt(digitalPinToInterrupt(IRQ), rec_isr, FALLING);
       }
       break;
 
@@ -119,7 +119,7 @@ void radioPair()
         RF.setPayloadSize(PAY_LOAD_SIZE_STD);
         open_listening();
 
-        attachInterrupt(digitalPinToInterrupt(IRQ), isr, FALLING);
+        attachInterrupt(digitalPinToInterrupt(IRQ), rec_isr, FALLING);
 
         blink_block(pos + LED0, 100, 3);
       }

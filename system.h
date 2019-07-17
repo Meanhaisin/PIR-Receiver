@@ -22,7 +22,7 @@ extern volatile uint8_t duriation;
 void system_init();
 uint8_t bat_voltage();
 uint8_t BatPercent();
-void isr();
+void rec_isr();
 void time_isr();
 void blink_block(uint8_t pin, uint8_t t, uint8_t count);
 void Powerdown(unsigned long m, uint8_t p); //ms,%
