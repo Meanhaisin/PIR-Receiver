@@ -21,12 +21,7 @@ void system_init() //初始化端口、RF模块、检测设备是否完成配对
     current_STATUS = STATUS_PAIR;
     rfStatus = RF_STATUS_START_PAIR;
   }
-  /*
-    for(int i = 0; i < 5; i++)
-    {
-    Serial.println(ispair[i]);
-    }
-  */
+  
   Timer1.initialize(INTERVAL);
   Timer1.attachInterrupt(time_isr);
   attachInterrupt(digitalPinToInterrupt(IRQ), rec_isr, FALLING);
@@ -50,20 +45,15 @@ void rec_isr()
 void time_isr()
 {
   static long isr_timer = 0;
-  //Boot_Lantern();
   isr_timer++;
   if (isr_timer % 1 == 0) //便于调时
   {
-    //Boot_Lantern();
     sw_press();
-    //Boot_Lantern();
   }
   
   if (isr_timer % blink_rate == 0)
   {
     led_pair();
-    //isr_timer = 0;
-    //Boot_Lantern();
   }
 }
 /*
@@ -103,7 +93,7 @@ void blink_block(uint8_t pin, uint8_t t, uint8_t count)
     delay(t);
   }
 }
-/*
+
 void Powerdown(unsigned long m,uint8_t p)
 {
   if (millis() > m or BatPercent() < p)
@@ -111,4 +101,3 @@ void Powerdown(unsigned long m,uint8_t p)
     LowPower.powerDown(SLEEP_FOREVER, ADC_OFF, BOD_OFF);
   }
 }
-*/

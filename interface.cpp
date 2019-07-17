@@ -77,18 +77,14 @@ uint8_t led_set(bool ispair[]) //生成寄存器使用的二进制代码
   uint8_t i;
   uint8_t re = 0;
 
-  //Boot_Lantern();
-
   for (i = 0; i < 5; i++)
   {
     if (ispair[i] == 0)
     {
-      //Boot_Lantern();
       bitSet(re, i + 1);
     }
     else
     {
-      //Boot_Lantern();
       bitClear(re, i + 1);
     }
   }
@@ -102,7 +98,6 @@ void led_pair() //控制配对状态下的led闪烁
     PORTC = led_set(ispair);
     ispair[pos] = !ispair[pos];
     //PORTC = B00000000;
-    //Boot_Lantern();
     setled++;
   }
 }

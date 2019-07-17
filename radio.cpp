@@ -1,5 +1,4 @@
 #include "radio.h"
-//#include "printf.h"
 
 byte rec_pipe[5][5]; //接收管道,从EEPROM读取
 uint8_t rfStatus = RF_STATUS_START_PAIR;
@@ -33,21 +32,6 @@ void open_listening()
     RF.openReadingPipe(REC_READINGPIPE_OFFSITE + i, rec_pipe[i]);
   }
   RF.startListening();
-/*
-  for (int i = 0; i < 5; i++)
-  {
-    for (int t = 0; t < 5; t++)
-    {
-      Serial.print(rec_pipe[i][t]);
-    }
-    Serial.println("");
-  }
-*/
-/*
-  printf_begin();
-  //输出测试
-  RF.printDetails();
-*/
 }
 
 bool radioRec()
@@ -57,7 +41,6 @@ bool radioRec()
 
   RF.available(&pipeNum);
   RF.read(&msg, sizeof(msg));
-  //Serial.println(msg);
 
   if (msg % 2 == 1)
   {
@@ -85,19 +68,16 @@ void radioPair()
       RF.stopListening();
       RF.setPayloadSize(PAY_LOAD_SIZE_PAIR);
       RF.openWritingPipe(pair_pipe);
-      //Boot_Lantern();
-
+      
       if (sw_status[MID] == SHORT_PRESSED)
       {
         rfStatus = RF_STATUS_PAIRING;
         readSN(tmp_pipe);
         tmp_pipe[0] = pos;
         set_blink_rate(500);
-        //Boot_Lantern();
       }
       else if (sw_status[MID] == LONG_PRESSED)
       {
-        //sw_status[MID] = NOT_PRESSED;
         current_STATUS = STATUS_STD;
 
         RF.setPayloadSize(PAY_LOAD_SIZE_STD);
