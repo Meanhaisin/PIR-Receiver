@@ -24,7 +24,7 @@ void system_init() //初始化端口、RF模块、检测设备是否完成配对
 
   Timer1.initialize(INTERVAL);
   Timer1.attachInterrupt(time_isr);
-  attachInterrupt(IRQ - 2, isr, FALLING);
+  attachInterrupt(digitalPinToInterrupt(IRQ), rec_isr, FALLING);
 }
 
 uint8_t bat_voltage()
@@ -37,7 +37,7 @@ uint8_t BatPercent()
   return map(analogRead(BAT), 368, 615, 0, 100); //1V8-3V
 }
 
-void isr()
+void rec_isr()
 {
   current_STATUS = STATUS_MSG;
 }
