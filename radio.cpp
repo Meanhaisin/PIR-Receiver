@@ -2,7 +2,7 @@
 
 byte rec_pipe[5][5]; //接收管道,从EEPROM读取
 uint8_t rfStatus = RF_STATUS_START_PAIR;
-bool ispair[5] = {0}; //是否已配对
+bool ispair[5] = {0, 0, 0, 0, 0}; //是否已配对
 
 RF24 RF(CE, CSN);
 
@@ -50,7 +50,7 @@ bool radioRec()
   }
   else
   {
-    alarm[pipeNum -1 ] = 0;
+    alarm[pipeNum - 1 ] = 0;
     BZ_noneAlarm();
     return 0;
   }
@@ -71,6 +71,8 @@ void radioPair()
 
       if (sw_status[MID] == SHORT_PRESSED)
       {
+        sw_status[MID] = NOT_PRESSED;
+
         rfStatus = RF_STATUS_PAIRING;
         readSN(tmp_pipe);
         tmp_pipe[0] = pos;
@@ -78,12 +80,20 @@ void radioPair()
       }
       else if (sw_status[MID] == LONG_PRESSED)
       {
+        sw_status[MID] = NOT_PRESSED;
+
         current_STATUS = STATUS_STD;
 
         RF.setPayloadSize(PAY_LOAD_SIZE_STD);
         open_listening();
 
         attachInterrupt(digitalPinToInterrupt(IRQ), rec_isr, FALLING);
+      }
+      else if (sw_status[STATUS_COMBINATION] == COMBINED)
+      {
+        sw_status[STATUS_COMBINATION] = NOT_PRESSED;
+
+        delPipe(pos);
       }
       break;
 
