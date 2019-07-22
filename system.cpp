@@ -39,7 +39,10 @@ uint8_t BatPercent()
 
 void rec_isr()
 {
-  current_STATUS = STATUS_MSG;
+  if (digitalRead(IRQ) == LOW)
+  {
+    current_STATUS = STATUS_MSG;
+  }
 }
 
 void time_isr()
@@ -50,7 +53,7 @@ void time_isr()
   {
     sw_press();
   }
-  
+
   if (isr_timer % blink_rate == 0)
   {
     led_pair();
@@ -68,7 +71,7 @@ void blink_block(uint8_t pin, uint8_t t, uint8_t count)
   }
 }
 
-void Powerdown(unsigned long m,uint8_t p)
+void Powerdown(unsigned long m, uint8_t p)
 {
   if (millis() > m or BatPercent() < p)
   {
