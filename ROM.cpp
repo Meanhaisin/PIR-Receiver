@@ -1,6 +1,6 @@
 #include "ROM.h"
 
-void writePipe(byte pipe[])
+void writePipe(const byte pipe[])
 {
   for (uint8_t i = PIPE_OFFSITE; i < SN_WIDTH; i++)
   {
@@ -8,7 +8,7 @@ void writePipe(byte pipe[])
   }
 }
 
-void writeNO(uint8_t no ,byte pipe[])
+void writeNO(uint8_t no ,const byte pipe[])
 {
   EEPROM.update(NO_OFFSITE + no, pipe[0]);
 }
@@ -34,7 +34,7 @@ void delPipe(uint8_t no)
   EEPROM.update(NO_OFFSITE + no, NONE);
 }
 
-void readSN(byte * sn)
+void readSN(byte sn[])
 {
   for (int i = 0; i < SN_WIDTH; i++)
   {

@@ -15,10 +15,10 @@
 
 extern byte rec_pipe[5][5];
 
-void writePipe(byte pipe[]); //写入管道
-void writeNO(uint8_t no ,byte pipe[]); //设置标志位(管道第一位)
+void writePipe(const byte pipe[]); //写入管道
+void writeNO(uint8_t no ,const byte pipe[]); //设置标志位(管道第一位)
 void readPipe();
 void delPipe(uint8_t no); //删除管道(只需清除标志位)
-void readSN(byte * sn);
+void readSN(byte sn[]);
 
 #endif
