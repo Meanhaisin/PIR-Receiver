@@ -32,6 +32,8 @@ void readPipe()
 void delPipe(uint8_t no)
 {
   EEPROM.update(NO_OFFSITE + no, NONE);
+
+  ispair[no] = 0;
 }
 
 void readSN(byte sn[])
@@ -40,4 +42,14 @@ void readSN(byte sn[])
   {
     sn[i + 1] = EEPROM.read(i + SN_OFFSITE);
   }
+}
+
+void writeConfig(unsigned int addr,uint8_t config)
+{
+  EEPROM.update(addr, config);
+}
+
+uint8_t readConfig(unsigned int addr)
+{
+  return EEPROM.read(addr);
 }

@@ -12,6 +12,7 @@
 #define SN_WIDTH 4
 #define SN_OFFSITE 1020
 #define NONE 0xFF
+#define CONFIG0 1019
 
 extern byte rec_pipe[5][5];
 
@@ -20,5 +21,7 @@ void writeNO(uint8_t no ,const byte pipe[]); //设置标志位(管道第一位)
 void readPipe();
 void delPipe(uint8_t no); //删除管道(只需清除标志位)
 void readSN(byte sn[]);
+void writeConfig(unsigned int addr,uint8_t config);
+uint8_t readConfig(unsigned int addr);
 
 #endif

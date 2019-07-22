@@ -1,8 +1,7 @@
 #include "system.h"
 
-bool ledchange = 1;
-bool ledflag = 0;
 unsigned int blink_rate = 1000;
+bool mute = false;
 
 void system_init() //初始化端口、RF模块、检测设备是否完成配对（未配对进入STATUS_pair,否则进入STATUS_std)
 {
@@ -11,6 +10,8 @@ void system_init() //初始化端口、RF模块、检测设备是否完成配对
   interface_init();
 
   Boot_Lantern(1);
+
+  setConfig();
 
   if (radioInit())
   {
@@ -77,4 +78,22 @@ void Powerdown(unsigned long m, uint8_t p)
   {
     LowPower.powerDown(SLEEP_FOREVER, ADC_OFF, BOD_OFF);
   }
+}
+
+void setConfig()
+{
+  uint8_t config = readConfig(CONFIG0);
+
+  mute = bitRead(config,0);
+}
+
+uint8_t configGEN(bool f)
+{
+  uint8_t c = 0;
+
+  if(f)
+  {
+  bitSet(c,0);
+  }
+  return c;
 }

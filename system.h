@@ -1,4 +1,4 @@
- #ifndef _system_H
+#ifndef _system_H
 #define _system_H
 
 #include <Arduino.h>
@@ -24,5 +24,7 @@ void rec_isr();
 void time_isr();
 void blink_block(uint8_t pin, uint8_t t, uint8_t count);
 void Powerdown(unsigned long m, uint8_t p); //ms,%
+void setConfig();
+uint8_t configGEN(bool f);
 
 #endif
