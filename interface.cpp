@@ -1,6 +1,6 @@
 #include"interface.h"
 
-uint8_t sw_status[] = {NOT_PRESSED, NOT_PRESSED, NOT_PRESSED};
+uint8_t sw_status[] = {NOT_PRESSED, NOT_PRESSED, NOT_PRESSED, NOT_PRESSED};
 uint8_t pos = 2;
 volatile uint8_t setled = 0;
 
@@ -22,12 +22,12 @@ void interface_init()
 
 void Boot_Lantern(uint8_t c = 3) //开机动画
 {
-  for(uint8_t i = 0; i < c; i++)
+  for (uint8_t i = 0; i < c; i++)
   {
-  PORTC = B00101010;
-  delay(400);
-  PORTC = B00010100;
-  delay(400);
+    PORTC = B00101010;
+    delay(400);
+    PORTC = B00010100;
+    delay(400);
   }
   PORTC = B00000000;
 }
@@ -36,12 +36,17 @@ void sw_press() //控制中键及配对状态下的左右键
 {
   sw_status[MID] = keyDetect(SW1);
 
-  if (current_STATUS == STATUS_PAIR) //非配对状态下禁用左右键
+  if (current_STATUS == STATUS_STD)
+  {
+    sw_status[STATUS_COMBINATION] = keyDetect(COMBINATION);
+  }
+
+  if (rfStatus == RF_STATUS_START_PAIR && current_STATUS == STATUS_PAIR) //非配对状态禁用左右键 配对确认状态下禁用左右键
   {
     sw_status[LEFT] = keyDetect(SW2);
     sw_status[RIGHT] = keyDetect(SW3);
 
-    if (sw_status[LEFT] == SHORT_PRESSED && rfStatus == RF_STATUS_START_PAIR) //配对确认状态下禁用左右键
+    if (sw_status[LEFT] == SHORT_PRESSED)
     {
       if (setled % 2 == 1) //防止按下左右键改变ispair
       {
@@ -50,7 +55,7 @@ void sw_press() //控制中键及配对状态下的左右键
       }
       pos = (pos + 4) % 5;
     }
-    if (sw_status[RIGHT] == 1 && rfStatus == RF_STATUS_START_PAIR)
+    if (sw_status[RIGHT] == SHORT_PRESSED)
     {
       if (setled % 2 == 1)
       {
@@ -60,7 +65,6 @@ void sw_press() //控制中键及配对状态下的左右键
       pos = (pos + 1) % 5;
     }
   }
-
 }
 
 void Alarm() //控制标准状态下的led报警
