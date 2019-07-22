@@ -39,7 +39,7 @@ uint8_t keyDetect(uint8_t sw)
       switch (keyState[sw])
       {
         case KEY_STATE_RELEASE:
-          if (digitalRead(sw) == 0)    // 如果按键按下
+          if (digitalRead(sw) == 0 && keyState[COMBINATION] == KEY_STATE_RELEASE)    // 如果按键按下
           {
             keyState[sw] = KEY_STATE_SHORT_PRESSED;  // 转换至下一个状态
           }
