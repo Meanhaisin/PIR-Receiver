@@ -35,15 +35,11 @@ void Boot_Lantern(uint8_t c = 3) //开机动画
 void sw_press() //控制中键及配对状态下的左右键
 {
   sw_status[MID] = keyDetect(SW1);
-
-  if (current_STATUS == STATUS_STD)
-  {
-    sw_status[STATUS_COMBINATION] = keyDetect(COMBINATION);
-  }
+  sw_status[LEFT] = keyDetect(SW2);
 
   if (rfStatus == RF_STATUS_START_PAIR && current_STATUS == STATUS_PAIR) //非配对状态禁用左右键 配对确认状态下禁用左右键
   {
-    sw_status[LEFT] = keyDetect(SW2);
+    sw_status[STATUS_COMBINATION] = keyDetect(COMBINATION);
     sw_status[RIGHT] = keyDetect(SW3);
 
     if (sw_status[LEFT] == SHORT_PRESSED)
@@ -113,16 +109,22 @@ void set_blink_rate(int f)
 
 void BZ_alarm()
 {
-  tone(BZ, A6, 200);
+  if (!mute)
+  {
+    tone(BZ, A6, 200);
+  }
 }
 
 void BZ_noneAlarm()
 {
-  /*
-    tone(BZ, G4, 250);
-    delay(200);
-    tone(BZ, E4, 250);
-    delay(200);
-  */
-  tone(BZ, C4, 250);
+  if (!mute)
+  {
+    /*
+      tone(BZ, G4, 250);
+      delay(200);
+      tone(BZ, E4, 250);
+      delay(200);
+    */
+    tone(BZ, C4, 250);
+  }
 }

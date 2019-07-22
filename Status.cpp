@@ -13,7 +13,15 @@ void DO_STATUS_std()
     set_blink_rate(1000);
   }
 
-  Powerdown(7200000,3);
+  if (sw_status[LEFT] == LONG_PRESSED)
+  {
+    sw_status[LEFT] = NOT_PRESSED;
+    mute = !mute;
+    writeConfig(CONFIG0,configGEN(mute));
+    tone(BZ, G4, 50);
+  }
+
+  Powerdown(7200000, 3);
 }
 
 void DO_STATUS_msg()

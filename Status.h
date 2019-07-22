@@ -8,8 +8,12 @@
 
 extern uint8_t keyState[]; //按键状态
 extern uint8_t rfStatus; //无线状态
+extern bool mute;
+
 extern uint8_t keyDective(uint8_t sw); //按键读取函数
 extern void Alarm(); //报警函数
+extern void writeConfig(unsigned int addr,const uint8_t * config);
+
 
 #define STATUS_STD 0 //标准状态主要轮询些外设
 #define STATUS_MSG 1 //信息接收

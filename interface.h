@@ -34,6 +34,7 @@ extern bool alarm[];
 extern unsigned int blink_rate;
 extern bool ispair[];
 extern bool alarm[];
+extern bool mute;
 
 void interface_init();
 void Boot_Lantern(uint8_t c);
