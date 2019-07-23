@@ -3,7 +3,6 @@
 
 #include <Arduino.h>
 #include <TimerOne.h>
-#include <LowPower.h>
 #include "radio.h"
 #include "interface.h"
 
@@ -17,13 +16,19 @@ extern bool alarm[5];
 extern uint8_t keyStatus;
 extern volatile uint8_t duriation;
 
+extern void interface_init();
+extern void Boot_Lantern(uint8_t c);
+extern void sw_press();
+extern void led_pair();
+extern uint8_t readConfig(unsigned int addr);
+
 void system_init();
 uint8_t bat_voltage();
 uint8_t BatPercent();
 void rec_isr();
 void time_isr();
 void blink_block(uint8_t pin, uint8_t t, uint8_t count);
-void Powerdown(unsigned long m, uint8_t p); //ms,%
+void PowerSave(unsigned long m, uint8_t p); //ms,%
 void setConfig();
 uint8_t configGEN(bool f);
 

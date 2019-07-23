@@ -25,6 +25,15 @@
 extern uint8_t sw_status[];
 extern uint8_t pos;
 
+extern void writePipe(const byte pipe[]); //写入管道
+extern void writeNO(uint8_t no ,const byte pipe[]); //设置标志位(管道第一位)
+extern void readPipe();
+extern void delPipe(uint8_t no); //删除管道(只需清除标志位)
+extern void readSN(byte sn[]);
+extern void set_blink_rate(int f);
+extern void BZ_alarm();
+extern void BZ_noneAlarm();
+
 const byte pair_pipe[5] = {'P', 'p', 'a','i' ,'r'}; //配对默认管道
 
 bool radioInit();

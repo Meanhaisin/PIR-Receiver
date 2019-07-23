@@ -21,7 +21,7 @@ void DO_STATUS_std()
     tone(BZ, G4, 50);
   }
 
-  Powerdown(7200000, 3);
+  PowerSave(7200000, 150);
 }
 
 void DO_STATUS_msg()

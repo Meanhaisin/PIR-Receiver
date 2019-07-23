@@ -36,6 +36,8 @@ extern bool ispair[];
 extern bool alarm[];
 extern bool mute;
 
+extern uint8_t keyDetect(uint8_t sw);
+
 void interface_init();
 void Boot_Lantern(uint8_t c);
 void sw_press();

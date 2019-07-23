@@ -6,6 +6,7 @@ bool mute = false;
 void system_init() //初始化端口、RF模块、检测设备是否完成配对（未配对进入STATUS_pair,否则进入STATUS_std)
 {
   pinMode(IRQ, INPUT);
+  disablePower(POWER_SERIAL0); // 关闭串口  
 
   interface_init();
 
@@ -30,12 +31,21 @@ void system_init() //初始化端口、RF模块、检测设备是否完成配对
 
 uint8_t bat_voltage()
 {
-  return analogRead(BAT) / 8;
+  return analogRead(BAT) << 1;
 }
 
 uint8_t BatPercent()
 {
-  return map(analogRead(BAT), 368, 615, 0, 100); //1V8-3V
+  unsigned int b = analogRead(BAT);
+  
+  if(b > 368)
+  {
+  return map(b, 368, 615, 0, 100); //1V8-3V
+  }
+  else
+  {
+    return 0;
+  }
 }
 
 void rec_isr()
@@ -72,11 +82,12 @@ void blink_block(uint8_t pin, uint8_t t, uint8_t count)
   }
 }
 
-void Powerdown(unsigned long m, uint8_t p)
+void PowerSave(unsigned long m, uint8_t p)
 {
-  if (millis() > m or BatPercent() < p)
+  if (millis() > m || BatPercent() < p)
   {
-    LowPower.powerDown(SLEEP_FOREVER, ADC_OFF, BOD_OFF);
+    sleepMode(SLEEP_POWER_DOWN); //约节省电流26mA
+    sleep();
   }
 }
 
