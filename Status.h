@@ -9,6 +9,7 @@
 extern uint8_t keyState[]; //按键状态
 extern uint8_t rfStatus; //无线状态
 extern bool mute;
+extern unsigned long power_t;
 
 extern uint8_t keyDective(uint8_t sw); //按键读取函数
 extern bool radioRec(); //接收

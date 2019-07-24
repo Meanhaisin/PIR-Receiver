@@ -19,7 +19,6 @@ void loop()
 
     case STATUS_PAIR:
       DO_STATUS_pair();
-      //Serial.println(setled);
       break;
   }
 }

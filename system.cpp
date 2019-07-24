@@ -1,13 +1,15 @@
 #include "system.h"
 
+unsigned long power_t = 0;
 unsigned int blink_rate = 1000;
 bool mute = false;
 
 void system_init() //初始化端口、RF模块、检测设备是否完成配对（未配对进入STATUS_pair,否则进入STATUS_std)
 {
   pinMode(IRQ, INPUT);
-  disablePower(POWER_SERIAL0); // 关闭串口  
-
+  disablePower(POWER_SERIAL0); // 关闭串口
+  disablePower(POWER_WIRE); //关闭I²C
+  
   interface_init();
 
   Boot_Lantern(1);
@@ -27,6 +29,7 @@ void system_init() //初始化端口、RF模块、检测设备是否完成配对
   Timer1.initialize(INTERVAL);
   Timer1.attachInterrupt(time_isr);
   attachInterrupt(digitalPinToInterrupt(IRQ), rec_isr, FALLING);
+  attachInterrupt(digitalPinToInterrupt(SW1), sw_isr, FALLING);
 }
 
 uint8_t bat_voltage()
@@ -37,10 +40,10 @@ uint8_t bat_voltage()
 uint8_t BatPercent()
 {
   unsigned int b = analogRead(BAT);
-  
-  if(b > 368)
+
+  if (b > 368)
   {
-  return map(b, 368, 615, 0, 100); //1V8-3V
+    return map(b, 368, 615, 0, 100); //1V8-3V
   }
   else
   {
@@ -54,6 +57,15 @@ void rec_isr()
   {
     current_STATUS = STATUS_MSG;
   }
+}
+
+void sw_isr()
+{
+  if (millis() - power_t > POWERDOWN_T && current_STATUS == STATUS_STD)
+  {
+    power_t = millis() + POWERDOWN_T - WAKEUP_T_SW;
+  }
+  noSleep();
 }
 
 void time_isr()
@@ -84,9 +96,14 @@ void blink_block(uint8_t pin, uint8_t t, uint8_t count)
 
 void PowerSave(unsigned long m, uint8_t p)
 {
-  if (millis() > m || BatPercent() < p)
+  if (millis() - power_t > m )
   {
     sleepMode(SLEEP_POWER_DOWN); //约节省电流26mA
+    sleep();
+  }
+  if (BatPercent() < p)
+  {
+    disablePower(POWER_ALL);
     sleep();
   }
 }
@@ -95,16 +112,16 @@ void setConfig()
 {
   uint8_t config = readConfig(CONFIG0);
 
-  mute = bitRead(config,0);
+  mute = bitRead(config, 0);
 }
 
 uint8_t configGEN(bool f)
 {
   uint8_t c = 0;
 
-  if(f)
+  if (f)
   {
-  bitSet(c,0);
+    bitSet(c, 0);
   }
   return c;
 }

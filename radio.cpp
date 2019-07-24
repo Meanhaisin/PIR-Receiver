@@ -64,6 +64,7 @@ void radioPair()
   {
     case RF_STATUS_START_PAIR:
       detachInterrupt(digitalPinToInterrupt(IRQ));
+      detachInterrupt(digitalPinToInterrupt(SW1));
 
       RF.stopListening();
       RF.setPayloadSize(PAY_LOAD_SIZE_PAIR);
@@ -88,6 +89,7 @@ void radioPair()
         open_listening();
 
         attachInterrupt(digitalPinToInterrupt(IRQ), rec_isr, FALLING);
+        attachInterrupt(digitalPinToInterrupt(SW1), sw_isr, FALLING);
       }
       else if (sw_status[STATUS_COMBINATION] == COMBINED)
       {
@@ -110,6 +112,7 @@ void radioPair()
         open_listening();
 
         attachInterrupt(digitalPinToInterrupt(IRQ), rec_isr, FALLING);
+        attachInterrupt(digitalPinToInterrupt(SW1), sw_isr, FALLING);
 
         blink_block(pos + LED0, 100, 3);
       }
