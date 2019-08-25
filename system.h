@@ -10,7 +10,7 @@
 #define IRQ 3
 
 #define INTERVAL 1000 //定时器中断触发时间间隔（μs）
-#define POWERDOWN_T 1800000 //进入低功耗模式时间（ms）
+#define POWERDOWN_T 900000 //进入低功耗模式时间（ms）
 #define WAKEUP_T_SW 300000 //中键唤醒保持时间（ms）
 #define WAKEUP_T_IRQ 60000 //消息唤醒保持时间（ms）
 
